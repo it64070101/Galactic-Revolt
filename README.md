@@ -2,4 +2,7 @@
  A PSIT Project
  - by 64070101 Watcharawee Sripiboon
  - Nonta
- - john
+# ไม่ออกอย่าบอกด่วน ขอร้อง
+# Punim open
+# eiei
+# dddd
