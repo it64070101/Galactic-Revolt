@@ -1,12 +1,13 @@
 """Mouse"""
-
+# import
 import pygame , sys
 
+# หน้าต่าง
 mainClock = pygame.time.Clock()
 from pygame.locals import *
 pygame.init()
 pygame.display.set_caption("Mouse")
-screen = pygame.display.set_mode((800,800), 0, 32)
+screen = pygame.display.set_mode((800,800), 0, 40)
 
 img = pygame.image.load('Test2.png').convert()
 
@@ -16,6 +17,7 @@ clicking = False
 right_click = False
 middle_click = False
 
+# เชคว่ากดป่าว
 while True:
 
     screen.fill((0, 0, 0))
@@ -29,8 +31,8 @@ while True:
     if right_click:
         rot += 90
     if middle_click:
-        rot += 90
-    screen.blit(pygame.transform.rotate(img, rot), (loc[0] + offset[0],loc[1] + offset[1]))
+        rot += 180
+    screen.blit(pygame.transform.rotate(img, rot), (loc[0] + offset[0], loc[1] + offset[1]))
 
     for event in pygame.event.get():
         if event.type == QUIT:
@@ -54,5 +56,11 @@ while True:
         if event.type == MOUSEBUTTONUP:
             if event.button == 1:
                 clicking = False
+            if event.button == 3:
+                right_click = False
+            if event.button == 2:
+                middle_click = False
+
+
     pygame.display.update()
     mainClock.tick(60)
