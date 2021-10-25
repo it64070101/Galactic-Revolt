@@ -34,9 +34,9 @@ events = {
     "EV2" : "%s → MAX%s" %(man, red),
     "EV3" : "%s → MAX%s" %(man, blue),
     "EV4" : "%s → MAX%s" %(man, yellow),
-    "Bad1" : "2%s to avoid -2 HULL" %yellow,
-    "Bad2" : "2%s to avoid -2 %s" %(blue, man),
-    "Bad3" : "2%s to avoid -1 %s and -1 %s" %(red, blue, yellow),
+    "Bad1" : "-2%s to avoid -2 HULL" %yellow,
+    "Bad2" : "-2%s to avoid -2 %s" %(blue, man),
+    "Bad3" : "-2%s to avoid -1 %s and -1 %s" %(red, blue, yellow),
     "Change1" : "-1 MAX%s to +2 MAX%s" %(yellow, red),
     "Change2" : "-1 MAX%s to +2 MAX%s" %(red, blue),
     "Change3" : "-1 MAX%s to +2 MAX%s" %(blue, yellow)
@@ -45,14 +45,16 @@ bonus_events = {
     
 }
 bad_events = {
-    "Bad1" : "2%s to avoid -2 HULL" %yellow,
-    "Bad2" : "2%s to avoid -2 %s" %(blue, man),
-    "Bad3" : "2%s to avoid -1 %s and -1 %s" %(red, blue, yellow),
+    "Bad1" : "-2%s to avoid -2 HULL" %yellow,
+    "Bad2" : "-2%s to avoid -2 %s" %(blue, man),
+    "Bad3" : "-2%s to avoid -1 %s and -1 %s" %(red, blue, yellow),
     "Bonus1" : "+2 %s" %(man),
     "Bonus2" : "+1 %s %s %s" %(red, blue, yellow)
 }
 boss_events = {
-    "Badass1" : "4%s to avoid -2 HULL" %yellow,
+    "Badass1" : "-4%s to avoid -1 extra damage" %yellow,
+    "Badass2" : "-4%s to avoid -2 extra damage" %man,
+    "Badass3" : "-2 %s %s %s to avoid -1 extra damage" %(red, blue, yellow)
 }
 def ship_hud(ship): #สร้างหน้าบอก Resource
     """Make Ship HUD"""
@@ -155,4 +157,14 @@ def bonus_event():
     bonus = random.random()*100
     if bonus <= 40:
         print("Trigger")
-        
+
+def noss_event(evt):
+    """Trigger Boss Event"""
+    if evt == boss_events["Badass1"]:
+        ship["hull"][0] -= 2
+    if evt == boss_events["Badass2"]:
+        ship["hull"][0] -= 3
+    if evt == boss_events["Badass3"]:
+        ship["hull"][0] -= 2
+
+
