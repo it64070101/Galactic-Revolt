@@ -3,7 +3,7 @@ import random
 import os
 ship = {
         "hull" : [5, 10],
-        "red" : [1, 1], #♞ Trooper
+        "red" : [0, 0], #♞ Trooper
         "blue" : [1, 1], #♝ Supporter
         "yellow" : [1, 1], #♜ Engineer
         "man" : 9, #♟
