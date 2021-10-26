@@ -30,7 +30,7 @@ man = "♟"
 
 events = {
     "Recruit" : "%s + %s + %s → %s" %(red, blue ,yellow, man),
-    "Recovery" : "2%s to +1%s" %(man, ship["hull"][0]),
+    "Recovery" : "2%s to +1 HULL" %(man),
     "EV2" : "%s → MAX%s" %(man, red),
     "EV3" : "%s → MAX%s" %(man, blue),
     "EV4" : "%s → MAX%s" %(man, yellow),
@@ -52,7 +52,9 @@ bad_events = {
     "Bonus2" : "+1 %s %s %s" %(red, blue, yellow)
 }
 boss_events = {
-    "Badass1" : "4%s to avoid -2 HULL" %yellow,
+    "Badass1" : "4%s to avoid -1 extra damage" %yellow,
+    "Badass2" : "4%s to avoid -2 extra damage" %man,
+    "Badass3" : "2 %s %s %s to avoid -1 extra damage" %(red, blue, yellow)
 }
 def ship_hud(ship): #สร้างหน้าบอก Resource
     """Make Ship HUD"""
@@ -158,4 +160,14 @@ def bonus_event():
     bonus = random.random()*100
     if bonus <= 40:
         print("Trigger")
-        
+
+def noss_event(evt):
+    """Trigger Boss Event"""
+    if evt == boss_events["Badass1"]:
+        ship["hull"][0] -= 2
+    if evt == boss_events["Badass2"]:
+        ship["hull"][0] -= 3
+    if evt == boss_events["Badass3"]:
+        ship["hull"][0] -= 2
+
+
