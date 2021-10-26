@@ -119,6 +119,9 @@ def event(evt): #ใช้งานอีเวนต์
         ship["blue"][0] -= 1
         ship["yellow"][0] -= 1
         ship["man"] += 1
+    elif evt == events["Recovery"]:
+        ship["man"] -= 2
+        ship["hull"][0] += 1
     elif evt == events["EV2"]:
         ship["man"] -= 1
         ship["red"][1] += 1
