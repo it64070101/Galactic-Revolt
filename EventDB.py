@@ -2,7 +2,7 @@
 import random
 import os
 ship = {
-        "hull" : [5, 10],
+        "hull" : [1, 10],
         "red" : [0, 0], #♞ Trooper
         "blue" : [1, 1], #♝ Supporter
         "yellow" : [1, 1], #♜ Engineer
@@ -94,7 +94,7 @@ def random_event(all_event, num): #สุ่มว่าจะเจออีเ
 def choose_card(cards): #เลือกการ์ด
     """Choose Card"""
     while cards:
-        if ship["hull"][0] < 0 or ship["red"][0] < 0 or ship["blue"][0] < 0 or ship["yellow"][0] < 0 or ship["man"] < 0:
+        if ship["hull"][0] <= 0:
             return False
         ship_hud(ship)
         print("Please choose a card")
@@ -107,12 +107,13 @@ def choose_card(cards): #เลือกการ์ด
             event(cards[choose-1])
             del cards[choose-1]
             #os.system('cls')
-            for values in bad_events:
-                if values in cards:
-                    print('------------------------Trigger', values)
                     
         else:
             print("ERROR")
+    print(cards)
+    for values in bad_events.values():
+        if values in cards:
+            print('------------------------Trigger', values)
 
 def event(evt): #ใช้งานอีเวนต์
     """Trigger Event"""
@@ -161,7 +162,7 @@ def bonus_event():
     if bonus <= 40:
         print("Trigger")
 
-def noss_event(evt):
+def boss_event(evt):
     """Trigger Boss Event"""
     if evt == boss_events["Badass1"]:
         ship["hull"][0] -= 2
