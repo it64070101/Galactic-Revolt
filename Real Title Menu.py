@@ -51,24 +51,27 @@ blue=(0, 0, 255)
 yellow=(255, 255, 0)
 darkmagenta=(139,0,139)
 purple=(98,24,245)
+textcolor=(62, 170, 174)
+outlinecolor=(140,104,121)
 
 # Game Background
-bg = pygame.image.load("Testbg.png").convert()
+bg = pygame.image.load("Space.png").convert()
 bg_big = pygame.transform.scale(bg, (1024, 768))
 
 # Game Font
 font = "PressStart2P.ttf"
-#font = "cour.ttf"
+font = "ZF#2ndPixelus.ttf"
+font2 = "2005_iannnnnAMD.ttf"
 # Game Framerate
 clock = pygame.time.Clock()
 FPS=30
 
 def title_draw(selected):
     screen.blit(bg_big, [0, 0])
-    title=text("Galactic", font, 48, white)
-    title_outline=text("Galactic", font, 48, black)
-    title2=text("Revolt", font, 48, white)
-    title2_outline=text("Revolt", font, 48, black)
+    title=text("Galactic", font, 150, textcolor)
+    title_outline=text("Galactic", font, 150, white)
+    title2=text("Revolt", font2, 150, textcolor)
+    title2_outline=text("Revolt", font2, 150, white)
     if selected=="start":
         text_start=text("START", font, 32, red)
     else:
@@ -88,7 +91,7 @@ def title_draw(selected):
     screen.blit(title2_outline, (21, 137))
     screen.blit(title2_outline, (27, 143))
     screen.blit(title2_outline, (27, 137))
-    screen.blit(title2, (24, 140))
+    screen.blit(title2, (24, 160))
     screen.blit(text_start, (60, 300))
     screen.blit(text_quit, (60, 360))
 
