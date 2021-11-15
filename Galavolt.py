@@ -11,7 +11,7 @@ def mainloop():
         #edb.bonus_event()
         cards = edb.sector_cards()
         win = edb.choose_card(cards)
-        #os.system('cls')
+        os.system('cls')
         edb.ship['current']  += 1
     if win == False:
         print("Game Over")

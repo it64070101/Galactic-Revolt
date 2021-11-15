@@ -124,7 +124,7 @@ def menu():
                     if selected=="start":
                         print("Start")
                         pygame.draw.rect(screen, blue, (200,150,100,50))
-                        edb.ship_hud(screen, edb.ship)
+                        edb.ship_hud2(screen, edb.ship)
                     if selected=="quit":
                         pygame.quit()
                         quit()
