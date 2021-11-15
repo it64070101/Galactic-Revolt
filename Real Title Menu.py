@@ -2,6 +2,7 @@ import pygame
 from pygame.locals import *
 import os
 import EventDB as edb
+import time
 
 # Install Pygame
 pygame.init()
@@ -52,7 +53,7 @@ darkmagenta=(139,0,139)
 purple=(98,24,245)
 
 # Game Background
-bg = pygame.image.load("Space.png").convert()
+bg = pygame.image.load("Testbg.png").convert()
 bg_big = pygame.transform.scale(bg, (1024, 768))
 
 # Game Font
@@ -61,6 +62,48 @@ font = "PressStart2P.ttf"
 # Game Framerate
 clock = pygame.time.Clock()
 FPS=30
+
+def title_draw(selected):
+    screen.blit(bg_big, [0, 0])
+    title=text("Galactic", font, 48, white)
+    title_outline=text("Galactic", font, 48, black)
+    title2=text("Revolt", font, 48, white)
+    title2_outline=text("Revolt", font, 48, black)
+    if selected=="start":
+        text_start=text("START", font, 32, red)
+    else:
+        text_start = text("START", font, 32, white)
+    if selected=="quit":
+        text_quit=text("QUIT", font, 32, red)
+    else:
+        text_quit = text("QUIT", font, 32, white)
+        
+    # Text Output
+    screen.blit(title_outline, (27, 77))
+    screen.blit(title_outline, (27, 83))
+    screen.blit(title_outline, (21, 77))
+    screen.blit(title_outline, (21, 83))
+    screen.blit(title, (24, 80))
+    screen.blit(title2_outline, (21, 143))
+    screen.blit(title2_outline, (21, 137))
+    screen.blit(title2_outline, (27, 143))
+    screen.blit(title2_outline, (27, 137))
+    screen.blit(title2, (24, 140))
+    screen.blit(text_start, (60, 300))
+    screen.blit(text_quit, (60, 360))
+
+def showstar(starnum):
+    bg = pygame.transform.scale(pygame.image.load("Space.png").convert(), (1024, 768))
+    screen.blit(bg, [0, 0])
+    screen.blit(text("▮▮▮▮▮▮▯▯▯▯▯▯", font, 48, white), (512, 384))
+    pygame.display.update()
+    time.sleep(3)
+    bg = pygame.transform.scale(pygame.image.load("test.png").convert(), (1024, 768))
+    screen.blit(bg, [0, 0])
+    pygame.display.update()
+    time.sleep(3)
+    pygame.quit()
+    quit()
 
 # Menu
 def menu():
@@ -80,39 +123,14 @@ def menu():
                 if event.key==pygame.K_RETURN:
                     if selected=="start":
                         print("Start")
-                        mainloop()
+                        pygame.draw.rect(screen, blue, (200,150,100,50))
+                        edb.ship_hud(screen, edb.ship)
                     if selected=="quit":
                         pygame.quit()
                         quit()
 
         # UI Output
-        screen.blit(bg_big, [0, 0])
-        title=text("Galactic", font, 48, white)
-        title_outline=text("Galactic", font, 48, black)
-        title2=text("Revolt", font, 48, white)
-        title2_outline=text("Revolt", font, 48, black)
-        if selected=="start":
-            text_start=text("START", font, 32, red)
-        else:
-            text_start = text("START", font, 32, white)
-        if selected=="quit":
-            text_quit=text("QUIT", font, 32, red)
-        else:
-            text_quit = text("QUIT", font, 32, white)
-        
-        # Text Output
-        screen.blit(title_outline, (27, 77))
-        screen.blit(title_outline, (27, 83))
-        screen.blit(title_outline, (21, 77))
-        screen.blit(title_outline, (21, 83))
-        screen.blit(title, (24, 80))
-        screen.blit(title2_outline, (21, 143))
-        screen.blit(title2_outline, (21, 137))
-        screen.blit(title2_outline, (27, 143))
-        screen.blit(title2_outline, (27, 137))
-        screen.blit(title2, (24, 140))
-        screen.blit(text_start, (60, 300))
-        screen.blit(text_quit, (60, 360))
+        title_draw(selected)
         pygame.display.update()
         clock.tick(FPS)
         pygame.display.set_caption("Galactic Revolt - Demo")
