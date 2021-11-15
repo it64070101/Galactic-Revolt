@@ -1,5 +1,7 @@
 import pygame
+from pygame.locals import *
 import os
+import Galavolt as gv
 
 # Install Pygame
 pygame.init()
@@ -8,7 +10,9 @@ pygame.init()
 os.environ['SDL_VIDEO_CENTERED'] = '1'
 
 # Resolution
-screen=pygame.display.set_mode(1024, 768)
+screen_width=1024
+screen_height=768
+screen=pygame.display.set_mode((screen_width, screen_height))
 
 # Text format for render
 def text(message, textFont, textSize, textColor):
@@ -56,6 +60,7 @@ def menu():
                 if event.key==pygame.K_RETURN:
                     if selected=="start":
                         print("Start")
+                        gv.mainloop()
                     if selected=="quit":
                         pygame.quit()
                         quit()

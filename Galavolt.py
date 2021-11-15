@@ -7,6 +7,7 @@ import EventDB as edb
 def mainloop():
     """Main Loop"""
     stars = 1 #จำนวนดาวที่จะไป
+    win = True
     while edb.ship['current'] < stars or win == True:
         #edb.bonus_event()
         cards = edb.sector_cards()
