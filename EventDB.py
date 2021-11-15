@@ -6,8 +6,9 @@ ship = {
         "red" : [0, 0], #♞ Trooper
         "blue" : [1, 1], #♝ Supporter
         "yellow" : [1, 1], #♜ Engineer
-        "man" : 9, #♟
-        "current" : 0
+        "man" : 10, #♟
+        "current" : 0,
+        "boss" : 25
     }
 red = "♞"
 blue = "♝"
@@ -54,7 +55,11 @@ bad_events = {
 boss_events = {
     "Badass1" : "4%s to avoid -1 extra damage" %yellow,
     "Badass2" : "4%s to avoid -2 extra damage" %man,
-    "Badass3" : "2 %s %s %s to avoid -1 extra damage" %(red, blue, yellow)
+    "Badass3" : "2 %s %s %s to avoid -1 extra damage" %(red, blue, yellow),
+    "Badass4" : "4%s to avoid -2 %s" %(blue, man),
+    "Badass5" : "4%s to avoid -2 %s %s" %(yellow, red, blue),
+    "Badass6" : "2 %s %s %s to avoid -2 %s" %(red, blue, yellow, man),
+    "Badass7" : "2 %s to avoid -1 %s %s %s" %(man, red, blue, yellow)
 }
 def ship_hud(ship): #สร้างหน้าบอก Resource
     """Make Ship HUD"""
@@ -106,8 +111,7 @@ def choose_card(cards): #เลือกการ์ด
         elif choose-1 in range(len(cards)):
             event(cards[choose-1])
             del cards[choose-1]
-            #os.system('cls')
-                    
+            #os.system('cls')       
         else:
             print("ERROR")
     print(cards)
@@ -170,5 +174,21 @@ def boss_event(evt):
         ship["hull"][0] -= 3
     if evt == boss_events["Badass3"]:
         ship["hull"][0] -= 2
+    if evt == boss_events["Badass4"]:
+        ship["man"] -= 2
+    if evt == boss_events["Badass5"]:
+        ship["red"][1] -= 2
+        ship["blue"][1] -= 2
+    if evt == boss_events["Badass6"]:
+        ship["man"] -= 2
+    if evt == boss_events["Badass7"]:
+        ship["yellow"][1] -= 1
+        ship["red"][1] -= 1
+        ship["blue"][1] -= 1
 
+def boss_stage():
+    """Boos Stage"""
+    boss_deck = [boss for boss in boss_events.values()]
+    random_event(boss_deck, 5)
+    print(boss_deck)
 

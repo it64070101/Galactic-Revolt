@@ -6,7 +6,7 @@ import EventDB as edb
 
 def mainloop():
     """Main Loop"""
-    stars = 3 #จำนวนดาวที่จะไป
+    stars = 1 #จำนวนดาวที่จะไป
     while edb.ship['current'] < stars or win == True:
         #edb.bonus_event()
         cards = edb.sector_cards()
@@ -16,7 +16,11 @@ def mainloop():
     if win == False:
         print("Game Over")
     else:
-        print('Boss Stage')
+        print("BOSS STAGE")
+        print("Your Power: %d VS %d: Boss Power" %(edb.ship["man"], edb.ship["boss"]))
+        if edb.ship["boss"] >= edb.ship["man"]:
+            print("===== YOU LOSE ! =====")
+        else:
+            print("===== YOU WIN ! =====")
 
-# Game Start
 mainloop()
