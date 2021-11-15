@@ -58,7 +58,7 @@ bg_big = pygame.transform.scale(bg, (1024, 768))
 
 # Game Font
 font = "PressStart2P.ttf"
-
+#font = "cour.ttf"
 # Game Framerate
 clock = pygame.time.Clock()
 FPS=30

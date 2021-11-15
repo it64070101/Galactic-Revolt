@@ -18,13 +18,13 @@ ship = {
         "current" : 0,
         "boss" : 25
     }
-red = "♞"
-blue = "♝"
-yellow = "♜"
-man = "♟"
+red = "red"
+blue = "blue"
+yellow = "yellow"
+man = "VP"
 
 font = "PressStart2P.ttf"
-UIfont = "consola.ttf"
+UIfont = "PressStart2P.ttf"
 
 white=(255, 255, 255)
 white=(255, 255, 255)
@@ -229,16 +229,14 @@ def ship_hud(screen, ship): #สร้างหน้าบอก Resource
     screen.blit(bg, [0, 0])
     screen.blit(text("Stage %d" %ship['current'], UIfont, 48, red1), (0, 50))
     #screen.blit(text("╔"+"═"*49+"╗", UIfont, 48, blue1), (700, 50))
-    screen.blit(text("HULL: "+("▮"*ship['hull'][0])+"▯"*(ship['hull'][1]-ship['hull'][0]), UIfont, 48, black), (0, 75))
+    screen.blit(text("HULL: "+("O"*ship['hull'][0])+"-"*(ship['hull'][1]-ship['hull'][0]), UIfont, 48, black), (0, 75))
     screen.blit(text(" %02d %s " %(ship['man'], man), UIfont, 48, green), (0, 1000))
     screen.blit(text(" %d/%d %s " %(ship['red'][0], ship['red'][1], red), UIfont, 48, black), (0, 125))
     screen.blit(text(" %d/%d %s " %(ship['blue'][0], ship['blue'][1], blue), UIfont, 48, black), (0, 150))
     screen.blit(text(" %d/%d %s " %(ship['yellow'][0], ship['yellow'][1], yellow), UIfont, 48, black), (0, 175))
     #screen.blit(text("╚"+"═"*49+"╝", UIfont, 48, black), (700, 200))
     pygame.display.update()
-    time.sleep(3)
-    pygame.quit()
-    quit()
+    time.sleep(2)
 
 # def eventpress():
 #     eventpress=True
