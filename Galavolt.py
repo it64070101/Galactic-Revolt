@@ -1,5 +1,4 @@
 """Galactic Revolt!"""
-from math import fabs
 import random
 import os
 import EventDB as edb

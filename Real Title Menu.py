@@ -1,7 +1,7 @@
 import pygame
 from pygame.locals import *
 import os
-import Galavolt as gv
+import EventDB as edb
 
 # Install Pygame
 pygame.init()
@@ -19,6 +19,26 @@ def text(message, textFont, textSize, textColor):
     newFont=pygame.font.Font(textFont, textSize)
     newText=newFont.render(message, 0, textColor)
     return newText
+
+def mainloop():
+    """Main Loop"""
+    stars = 1 #จำนวนดาวที่จะไป
+    win = True
+    while edb.ship['current'] < stars or win == True:
+        #edb.bonus_event()
+        cards = edb.sector_cards()
+        win = edb.choose_card(cards)
+        #os.system('cls')
+        edb.ship['current']  += 1
+    if win == False:
+        print("Game Over")
+    else:
+        print("BOSS STAGE")
+        print("Your Power: %d VS %d: Boss Power" %(edb.ship["man"], edb.ship["boss"]))
+        if edb.ship["boss"] >= edb.ship["man"]:
+            print("===== YOU LOSE ! =====")
+        else:
+            print("===== YOU WIN ! =====")
 
 # Colors
 white=(255, 255, 255)
@@ -60,7 +80,7 @@ def menu():
                 if event.key==pygame.K_RETURN:
                     if selected=="start":
                         print("Start")
-                        gv.mainloop()
+                        mainloop()
                     if selected=="quit":
                         pygame.quit()
                         quit()
