@@ -53,47 +53,47 @@ darkmagenta=(139,0,139)
 purple=(98,24,245)
 textcolor=(62, 170, 174)
 outlinecolor=(140,104,121)
+selectcolor=(255, 170, 94)
 
 # Game Background
-bg = pygame.image.load("Space.png").convert()
+bg = pygame.image.load("title.png").convert()
 bg_big = pygame.transform.scale(bg, (1024, 768))
 
 # Game Font
 font = "PressStart2P.ttf"
 font = "ZF#2ndPixelus.ttf"
-font2 = "2005_iannnnnAMD.ttf"
 # Game Framerate
 clock = pygame.time.Clock()
 FPS=30
 
 def title_draw(selected):
     screen.blit(bg_big, [0, 0])
-    title=text("Galactic", font, 150, textcolor)
-    title_outline=text("Galactic", font, 150, white)
-    title2=text("Revolt", font2, 150, textcolor)
-    title2_outline=text("Revolt", font2, 150, white)
+    title=text("Galactic", font, 200, textcolor)
+    #title_outline=text("Galactic", font, 200, white)
+    title2=text("Revolt !", font, 200, textcolor)
+    #title2_outline=text("Revolt !", font, 200, white)
     if selected=="start":
-        text_start=text("START", font, 32, red)
+        text_start=text("START <<<", font, 128, selectcolor)
     else:
-        text_start = text("START", font, 32, white)
+        text_start = text("START", font, 128, white)
     if selected=="quit":
-        text_quit=text("QUIT", font, 32, red)
+        text_quit=text("QUIT <<<", font, 128, selectcolor)
     else:
-        text_quit = text("QUIT", font, 32, white)
+        text_quit = text("QUIT", font, 128, white)
         
     # Text Output
-    screen.blit(title_outline, (27, 77))
-    screen.blit(title_outline, (27, 83))
-    screen.blit(title_outline, (21, 77))
-    screen.blit(title_outline, (21, 83))
-    screen.blit(title, (24, 80))
-    screen.blit(title2_outline, (21, 143))
-    screen.blit(title2_outline, (21, 137))
-    screen.blit(title2_outline, (27, 143))
-    screen.blit(title2_outline, (27, 137))
-    screen.blit(title2, (24, 160))
-    screen.blit(text_start, (60, 300))
-    screen.blit(text_quit, (60, 360))
+    #screen.blit(title_outline, (27, 77))
+    #screen.blit(title_outline, (27, 83))
+    #screen.blit(title_outline, (21, 77))
+    #screen.blit(title_outline, (21, 83))
+    #screen.blit(title, (24, 90))
+    #screen.blit(title2_outline, (21, 163))
+    #screen.blit(title2_outline, (21, 157))
+    #screen.blit(title2_outline, (27, 163))
+    #screen.blit(title2_outline, (27, 157))
+    #screen.blit(title2, (24, 180))
+    screen.blit(text_start, (580, 400))
+    screen.blit(text_quit, (656, 480))
 
 def showstar(starnum):
     bg = pygame.transform.scale(pygame.image.load("Space.png").convert(), (1024, 768))

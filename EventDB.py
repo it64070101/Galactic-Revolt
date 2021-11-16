@@ -225,18 +225,18 @@ def test(screen):
     
 def ship_hud2(screen, ship): #สร้างหน้าบอก Resource
     """Make Ship pygame"""
-    bg = pygame.transform.scale(pygame.image.load("Card1.png").convert(), (1024, 768))
+    bg = pygame.transform.scale(pygame.image.load("Space_Background_4.png").convert(), (1024, 768))
     screen.blit(bg, [0, 0])
-    screen.blit(text("Stage %d" %ship['current'], UIfont, 48, red1), (0, 50))
+    screen.blit(text("Stage %d" %ship['current'], UIfont, 48, white), (64, 64))
     #screen.blit(text("╔"+"═"*49+"╗", UIfont, 48, blue1), (700, 50))
-    screen.blit(text("HULL: "+("O"*ship['hull'][0])+"-"*(ship['hull'][1]-ship['hull'][0]), UIfont, 28, black), (45, 75))
-    screen.blit(text(" %02d %s " %(ship['man'], man), UIfont, 28, green), (45, 1000))
-    screen.blit(text(" %d/%d %s " %(ship['red'][0], ship['red'][1], red), UIfont, 28, black), (45, 125))
-    screen.blit(text(" %d/%d %s " %(ship['blue'][0], ship['blue'][1], blue), UIfont, 28, black), (45, 150))
-    screen.blit(text(" %d/%d %s " %(ship['yellow'][0], ship['yellow'][1], yellow), UIfont, 28, black), (512, 660))
+    screen.blit(text("HULL: "+("O"*ship['hull'][0])+"-"*(ship['hull'][1]-ship['hull'][0]), UIfont, 28, white), (128, 576))
+    screen.blit(text("%02d %s " %(ship['man'], man), UIfont, 28, green), (128, 640))
+    screen.blit(text("%d/%d %s " %(ship['red'][0], ship['red'][1], red), UIfont, 28, white), (640, 580))
+    screen.blit(text("%d/%d %s " %(ship['blue'][0], ship['blue'][1], blue), UIfont, 28, white), (640, 620))
+    screen.blit(text("%d/%d %s " %(ship['yellow'][0], ship['yellow'][1], yellow), UIfont, 28, white), (640, 660))
     #screen.blit(text("╚"+"═"*49+"╝", UIfont, 48, black), (700, 200))
     pygame.display.update()
-    time.sleep(10)
+    time.sleep(3)
 
 # def eventpress():
 #     eventpress=True
