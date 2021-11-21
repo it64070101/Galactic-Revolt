@@ -225,8 +225,10 @@ def test(screen):
     
 def ship_hud2(screen, ship): #สร้างหน้าบอก Resource
     """Make Ship pygame"""
-    bg = pygame.transform.scale(pygame.image.load("Space_Background_4.png").convert(), (1024, 768))
+    bg = pygame.transform.scale(pygame.image.load("Space_Background_4.png").convert_alpha(), (1024, 768))
+    ui_1 = pygame.transform.scale(pygame.image.load("3.png").convert_alpha(), (1024, 768))
     screen.blit(bg, [0, 0])
+    screen.blit(ui_1, [0, 0])
     screen.blit(text("Stage %d" %ship['current'], UIfont, 48, white), (64, 64))
     #screen.blit(text("╔"+"═"*49+"╗", UIfont, 48, blue1), (700, 50))
     screen.blit(text("HULL: "+("O"*ship['hull'][0])+"-"*(ship['hull'][1]-ship['hull'][0]), UIfont, 28, white), (128, 576))
