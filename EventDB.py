@@ -3,6 +3,9 @@ import random
 import os
 import pygame
 import time
+import randomstar
+
+starname = randomstar.starname
 
 def text(message, textFont, textSize, textColor):
     newFont=pygame.font.Font(textFont, textSize)
@@ -25,6 +28,7 @@ man = "Power"
 
 font = "PressStart2P.ttf"
 UIfont = "PressStart2P.ttf"
+box = 64
 
 white=(255, 255, 255)
 white=(255, 255, 255)
@@ -36,6 +40,9 @@ blue1=(0, 0, 255)
 yellow1=(255, 255, 0)
 darkmagenta=(139,0,139)
 purple=(98,24,245)
+textcolor=(62, 170, 174)
+outlinecolor=(140,104,121)
+selectcolor=(255, 170, 94)
 
 # เพิ่มเฉพาะสี
 # เพิ่มคน
@@ -229,14 +236,15 @@ def ship_hud2(screen, ship): #สร้างหน้าบอก Resource
     ui_1 = pygame.transform.scale(pygame.image.load("3.png").convert_alpha(), (1024, 768))
     screen.blit(bg, [0, 0])
     screen.blit(ui_1, [0, 0])
-    screen.blit(text("Stage %d" %ship['current'], UIfont, 48, white), (64, 64))
+    screen.blit(text("Star: %s" %starname[ship['current']], UIfont, 36, textcolor), (64, 32))
     #screen.blit(text("╔"+"═"*49+"╗", UIfont, 48, blue1), (700, 50))
-    screen.blit(text("HULL: "+("O"*ship['hull'][0])+"-"*(ship['hull'][1]-ship['hull'][0]), UIfont, 28, white), (128, 576))
-    screen.blit(text("%02d %s " %(ship['man'], man), UIfont, 28, green), (128, 640))
-    screen.blit(text("%d/%d %s " %(ship['red'][0], ship['red'][1], red), UIfont, 28, white), (640, 580))
-    screen.blit(text("%d/%d %s " %(ship['blue'][0], ship['blue'][1], blue), UIfont, 28, white), (640, 620))
-    screen.blit(text("%d/%d %s " %(ship['yellow'][0], ship['yellow'][1], yellow), UIfont, 28, white), (640, 660))
+    screen.blit(text("HULL: "+("O"*ship['hull'][0])+"-"*(ship['hull'][1]-ship['hull'][0]), UIfont, 24, white), (256, 576))
+    screen.blit(text("%02d %s " %(ship['man'], man), UIfont, 24, green), (256, 640))
+    screen.blit(text("%d/%d %s " %(ship['red'][0], ship['red'][1], red), UIfont, 24, white), (704, 580))
+    screen.blit(text("%d/%d %s " %(ship['blue'][0], ship['blue'][1], blue), UIfont, 24, white), (704, 620))
+    screen.blit(text("%d/%d %s " %(ship['yellow'][0], ship['yellow'][1], yellow), UIfont, 24, white), (704, 660))
     #screen.blit(text("╚"+"═"*49+"╝", UIfont, 48, black), (700, 200))
+    screen.blit(text(events["Recruit"], UIfont, 20, white), (box*1, box*2))
     pygame.display.update()
     time.sleep(3)
 
