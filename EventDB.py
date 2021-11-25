@@ -258,64 +258,30 @@ def ship_hud2(screen, ship): #สร้างหน้าบอก Resource
 def card(selected):
     """card ui"""
     if selected=="1":
-        text_1=text("(1) <<", UIfont, 64, selectcolor)
+        text_1=text("(1) <<", UIfont, 24, selectcolor)
     else:
-        text_1 = text("(1)", UIfont, 64, white)
+        text_1 = text("(1)", UIfont, 24, white)
     if selected=="2":
-        text_2=text("(2) <<", UIfont, 64, selectcolor)
+        text_2=text("(2) <<", UIfont, 24, selectcolor)
     else:
-        text_2 = text("(2)", UIfont, 64, white)
+        text_2 = text("(2)", UIfont, 24, white)
     if selected=="3":
-        text_3=text("(3) <<", UIfont, 64, selectcolor)
+        text_3=text("(3) <<", UIfont, 24, selectcolor)
     else:
-        text_3 = text("(3)", UIfont, 64, white)
+        text_3 = text("(3)", UIfont, 24, white)
     if selected=="4":
-        text_4=text("(4) <<", UIfont, 64, selectcolor)
+        text_4=text("(4) <<", UIfont, 24, selectcolor)
     else:
-        text_4 = text("(4)", UIfont, 64, white)
+        text_4 = text("(4)", UIfont, 24, white)
     if selected=="5":
-        text_5=text("(5) <<", UIfont, 64, selectcolor)
+        text_5=text("(5) <<", UIfont, 24, selectcolor)
     else:
-        text_5 = text("(5)", UIfont, 64, white)
+        text_5 = text("(5)", UIfont, 24, white)
     
-    screen.blit(text_1, (64, 64))
-    screen.blit(text_2, (64, 96))
-    screen.blit(text_3, (64, 128))
-    screen.blit(text_4, (64, 160))
-    screen.blit(text_5, (64, 192))
+    screen.blit(text_1, (64, 120))
+    screen.blit(text_2, (64, 160))
+    screen.blit(text_3, (64, 200))
+    screen.blit(text_4, (64, 240))
+    screen.blit(text_5, (64, 280))
     pygame.display.update()
-
-def eventpress():
-    eventpress=True
-    selected="1"
-
-    while eventpress:
-        for event in pygame.event.get():
-            if event.type==pygame.KEYDOWN:
-                if event.key==pygame.K_1:
-                    selected="1"
-                elif event.key==pygame.K_2:
-                    selected="2"
-                elif event.key==pygame.K_3:
-                    selected="3"
-                elif event.key==pygame.K_4:
-                    selected="4"
-                elif event.key==pygame.K_5:
-                    selected="5"
-                if event.key==pygame.K_RETURN:
-                    if selected=="1":
-                        print("1")
-                    elif selected=="2":
-                        print("2")
-                    elif selected=="3":
-                        print("3")
-                    elif selected=="4":
-                        print("4")
-                    elif selected=="5":
-                        print("5")
-                    if selected=="quit":
-                        pygame.quit()
-                        quit()
-        card(selected)
-        pygame.display.update()
-        clock.tick(FPS)
+    time.sleep(5)

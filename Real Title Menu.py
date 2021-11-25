@@ -128,6 +128,7 @@ def menu():
                         print("Start")
                         pygame.draw.rect(screen, blue, (200,150,100,50))
                         edb.ship_hud2(screen, edb.ship)
+                        eventpress()
                     if selected=="quit":
                         pygame.quit()
                         quit()
@@ -137,6 +138,41 @@ def menu():
         pygame.display.update()
         clock.tick(FPS)
         pygame.display.set_caption("Galactic Revolt - Demo")
+
+def eventpress():
+    eventpress=True
+    selected="1"
+
+    while eventpress:
+        for event in pygame.event.get():
+            if event.type==pygame.KEYDOWN:
+                if event.key==pygame.K_1:
+                    selected="1"
+                elif event.key==pygame.K_2:
+                    selected="2"
+                elif event.key==pygame.K_3:
+                    selected="3"
+                elif event.key==pygame.K_4:
+                    selected="4"
+                elif event.key==pygame.K_5:
+                    selected="5"
+                if event.key==pygame.K_RETURN:
+                    if selected=="1":
+                        print("1")
+                    elif selected=="2":
+                        print("2")
+                    elif selected=="3":
+                        print("3")
+                    elif selected=="4":
+                        print("4")
+                    elif selected=="5":
+                        print("5")
+                    if selected=="quit":
+                        pygame.quit()
+                        quit()
+        edb.card(selected)
+        pygame.display.update()
+
 
 #Initialize Game
 menu()
