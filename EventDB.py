@@ -28,9 +28,9 @@ ship = {
         "current" : 0,
         "boss" : 25
     }
-red = "Trooper"
-blue = "Supporter"
-yellow = "Engineer"
+red = "T"
+blue = "S"
+yellow = "E"
 man = "Power"
 
 font = "PressStart2P.ttf"
@@ -109,15 +109,6 @@ bad_events = {
     "VeryBad1" : "2 %s to avoid -1 %s" %(red, man),
     "Bonus2" : "+1 %s %s %s" %(red, blue, yellow)
 }
-boss_events = {
-    "Badass1" : "4 %s to avoid -1 extra damage" %yellow,
-    "Badass2" : "4 %s to avoid -2 extra damage" %man,
-    "Badass3" : "2 %s %s %s to avoid -1 extra damage" %(red, blue, yellow),
-    "Badass4" : "4 %s to avoid -2 %s" %(blue, man),
-    "Badass5" : "4 %s to avoid -2 %s %s" %(yellow, red, blue),
-    "Badass6" : "2 %s %s %s to avoid -2 %s" %(red, blue, yellow, man),
-    "Badass7" : "2 %s to avoid -1 %s %s %s" %(man, red, blue, yellow)
-}
 def ship_hud(ship): #สร้างหน้าบอก Resource
     """Make Ship HUD"""
     #len_1 = len(" HULL: "+("▮"*ship['hull'][0])+"▯"*(ship['hull'][1]-ship['hull'][0]))
@@ -139,7 +130,7 @@ def sector_cards(): #สุ่มว่าจะมีการ์ดออก�
     ship['red'][0] = ship['red'][1]
     ship['blue'][0] = ship['blue'][1]
     ship['yellow'][0] = ship['yellow'][1]
-    all_event = [eve for eve in events.values()]
+    all_event = [eve for eve in events]
     num = random.random()*100
     if num >= 0 and num < 25:
         num = 3
@@ -166,7 +157,7 @@ def choose_card(cards): #เลือกการ์ด
         ship_hud(ship)
         print("Please choose a card")
         for i in range(len(cards)):
-            print("(%d): %s" %(i+1, cards[i]))
+            print("(%d) %s: %s" %(i+1, cards[i], events[cards[i]]))
         choose = int(input())
         if choose == 0:
             break
@@ -177,90 +168,90 @@ def choose_card(cards): #เลือกการ์ด
         else:
             print("ERROR")
     print(cards)
-    for values in bad_events.values():
+    for values in bad_events:
         if values in cards:
             print('------------------------Trigger', values)
 
 def event(evt): #ใช้งานอีเวนต์
     """Trigger Event"""
-    if evt == events["Recruit"] and (ship["red"][0] > 0 and ship["blue"][0] > 0 and ship["yellow"][0] > 0):
+    if evt == "Recruit" and (ship["red"][0] > 0 and ship["blue"][0] > 0 and ship["yellow"][0] > 0):
         ship["red"][0] -= 1
         ship["blue"][0] -= 1
         ship["yellow"][0] -= 1
         ship["man"] += 1
-    elif evt == events["Recovery1"] and ship["man"] >= 2:
+    elif evt == "Recovery1" and ship["man"] >= 2:
         ship["man"] -= 2
         ship["hull"][0] += 1
-    elif evt == events["EV2"] and ship["man"] >= 1:
+    elif evt == "EV2" and ship["man"] >= 1:
         ship["man"] -= 1
         ship["red"][1] += 1
-    elif evt == events["EV3"] and ship["man"] >= 1:
+    elif evt == "EV3" and ship["man"] >= 1:
         ship["man"] -= 1
         ship["blue"][1] += 1
-    elif evt == events["EV4"] and ship["man"] >= 1:
+    elif evt == "EV4" and ship["man"] >= 1:
         ship["man"] -= 1
         ship["yellow"][1] += 1
-    elif evt == events["Change1"] and ship["yellow"][1] >= 1:
+    elif evt == "Change1" and ship["yellow"][1] >= 1:
         ship["yellow"][1] -= 1
         ship["red"][1] += 2
-    elif evt == events["Change2"] and ship["red"][1] >= 1:
+    elif evt == "Change2" and ship["red"][1] >= 1:
         ship["red"][1] -= 1
         ship["blue"][1] += 2
-    elif evt == events["Change3"] and ship["blue"][1] >= 1:
+    elif evt == "Change3" and ship["blue"][1] >= 1:
         ship["blue"][1] -= 1
         ship["yellow"][1] += 2
-    elif evt == events["Bonus1"]:
+    elif evt == "Bonus1":
         ship["man"] += 2
-    elif evt == events["Bonus2"]:
+    elif evt == "Bonus2":
         ship["yellow"][1] += 1
         ship["red"][1] += 1
         ship["blue"][1] += 1
-    elif evt == events["ExChange1"]:
+    elif evt == "ExChange1":
         ship["yellow"][1] -= 1
         ship["red"][1] += 1
         ship["blue"][1] += 1
-    elif evt == events["ExChange2"]:
+    elif evt == "ExChange2":
         ship["yellow"][1] += 1
         ship["red"][1] -= 1
         ship["blue"][1] += 1
-    elif evt == events["ExChange3"]:
+    elif evt == "ExChange3":
         ship["yellow"][1] += 1
         ship["red"][1] += 1
         ship["blue"][1] -= 1 
-    elif evt == events["LastSave1"]:
+    elif evt == "LastSave1":
         ship["blue"][0] += 2
         ship["red"][1] -= 1
-    elif evt == events["LastSave2"]:
+    elif evt == "LastSave2":
         ship["yellow"][0] += 2
         ship["red"][1] -= 1
-    elif evt == events["LastSave3"]:
+    elif evt == "LastSave3":
         ship["red"][0] += 2
         ship["blue"][1] -= 1
-    elif evt == events["LastSave4"]:
+    elif evt == "LastSave4":
         ship["yellow"][0] += 2
         ship["blue"][1] -= 1
-    elif evt == events["LastSave5"]:
+    elif evt == "LastSave5":
         ship["blue"][0] += 2
         ship["yellow"][1] -= 1
-    elif evt == events["LastSave6"]:
+    elif evt == "LastSave6":
         ship["red"][0] += 2
         ship["yellow"][1] -= 1
-    elif evt == events["ThebigSave1"]:
+    elif evt == "ThebigSave1":
         ship["man"] -= 1
         ship["yellow"][0] += 3
-    elif evt == events["ThebigSave2"]:
+    elif evt == "ThebigSave2":
         ship["man"] -= 1
         ship["blue"][0] += 3
-    elif evt == events["ThebigSave3"]:
+    elif evt == "ThebigSave3":
         ship["man"] -= 1
         ship["red"][0] += 3
-    elif evt == events["ThePowerUP1"]:
+    elif evt == "ThePowerUP1":
         ship["man"] += 1
         ship["red"][1] -= 1
-    elif evt == events["ThePowerUP2"]:
+    elif evt == "ThePowerUP2":
         ship["man"] += 1
         ship["blue"][1] -= 1
-    elif evt == events["ThePowerUP3"]:
+    elif evt == "ThePowerUP3":
         ship["man"] += 1
         ship["yellow"][1] -= 1
     else:
@@ -268,14 +259,14 @@ def event(evt): #ใช้งานอีเวนต์
 
 def bad_event(evt):
     """Trigger Bad Event"""
-    if evt == bad_events["Bad1"] and ship["hull"][0] >= 1:
+    if evt == "Bad1" and ship["hull"][0] >= 1:
         ship["hull"][0] -= 1
-    elif evt == bad_events["Bad2"] and ship["man"] >= 2:
+    elif evt == "Bad2" and ship["man"] >= 2:
         ship["man"] -= 2
-    elif evt == bad_events["Bad3"] and (ship["blue"][1] >= 1 and ship["yellow"][1] >= 1):
+    elif evt == "Bad3" and (ship["blue"][1] >= 1 and ship["yellow"][1] >= 1):
         ship["blue"][1] -= 1
         ship["yellow"][1] -= 1
-    elif evt == bad_event["VeryBad1"]:
+    elif evt == "VeryBad1":
         ship["man"] -= 1
 
 def bonus_event():
@@ -283,32 +274,6 @@ def bonus_event():
     bonus = random.random()*100
     if bonus <= 40:
         print("Trigger")
-
-def boss_event(evt):
-    """Trigger Boss Event"""
-    if evt == boss_events["Badass1"]:
-        ship["hull"][0] -= 2
-    if evt == boss_events["Badass2"]:
-        ship["hull"][0] -= 3
-    if evt == boss_events["Badass3"]:
-        ship["hull"][0] -= 2
-    if evt == boss_events["Badass4"]:
-        ship["man"] -= 2
-    if evt == boss_events["Badass5"]:
-        ship["red"][1] -= 2
-        ship["blue"][1] -= 2
-    if evt == boss_events["Badass6"]:
-        ship["man"] -= 2
-    if evt == boss_events["Badass7"]:
-        ship["yellow"][1] -= 1
-        ship["red"][1] -= 1
-        ship["blue"][1] -= 1
-
-def boss_stage():
-    """Boos Stage"""
-    boss_deck = [boss for boss in boss_events.values()]
-    random_event(boss_deck, 5)
-    print(boss_deck)
 
 def test(screen):
     bg = pygame.transform.scale(pygame.image.load("test.png").convert(), (1024, 768))
