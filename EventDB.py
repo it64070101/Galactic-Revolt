@@ -299,33 +299,35 @@ def ship_hud2(screen, ship): #สร้างหน้าบอก Resource
     screen.blit(text("%d/%d %s " %(ship['yellow'][0], ship['yellow'][1], yellow), UIfont, 24, white), (704, 660))
     #screen.blit(text("╚"+"═"*49+"╝", UIfont, 48, black), (700, 200))
     screen.blit(text(events["Recruit"], UIfont, 10, white), (box*1, box*2))
-    screen.blit(text(events["Recovery"], UIfont, 10, white), (box*1, box*3))   
+    screen.blit(text(events["Recovery1"], UIfont, 10, white), (box*1, box*3))   
     screen.blit(text(events["Bad1"], UIfont, 10, white), (box*1, box*4))   
     screen.blit(text(events["Bad2"], UIfont, 10, white), (box*1, box*5))
     screen.blit(text(events["Bad2"], UIfont, 10, white), (box*1, box*5))          
     pygame.display.update()
     time.sleep(5)
 
+bg_big = pygame.image.load("Space Background.png").convert()
 def card(selected):
     """card ui"""
-    if selected=="1":
-        text_1=text("(1) <<", UIfont, 24, selectcolor)
+    screen.blit(bg_big, [0, 0])
+    if selected%5 == 0:
+        text_1 = text("(1) <<", UIfont, 24, selectcolor)
     else:
         text_1 = text("(1)", UIfont, 24, white)
-    if selected=="2":
+    if selected%5 == 1:
         text_2=text("(2) <<", UIfont, 24, selectcolor)
     else:
         text_2 = text("(2)", UIfont, 24, white)
-    if selected=="3":
-        text_3=text("(3) <<", UIfont, 24, selectcolor)
+    if selected%5 == 2:
+        text_3 = text("(3) <<", UIfont, 24, selectcolor)
     else:
         text_3 = text("(3)", UIfont, 24, white)
-    if selected=="4":
-        text_4=text("(4) <<", UIfont, 24, selectcolor)
+    if selected%5 == 3:
+        text_4 = text("(4) <<", UIfont, 24, selectcolor)
     else:
         text_4 = text("(4)", UIfont, 24, white)
-    if selected=="5":
-        text_5=text("(5) <<", UIfont, 24, selectcolor)
+    if selected%5 == 4:
+        text_5 = text("(5) <<", UIfont, 24, selectcolor)
     else:
         text_5 = text("(5)", UIfont, 24, white)
     
@@ -334,5 +336,5 @@ def card(selected):
     screen.blit(text_3, (64, 200))
     screen.blit(text_4, (64, 240))
     screen.blit(text_5, (64, 280))
-    pygame.display.update()
-    time.sleep(5)
+    #pygame.display.update()
+    # time.sleep(5)

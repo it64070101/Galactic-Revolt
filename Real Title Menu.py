@@ -69,29 +69,15 @@ FPS=30
 def title_draw(selected):
     screen.blit(bg_big, [0, 0])
     title=text("Galactic", font, 200, textcolor)
-    #title_outline=text("Galactic", font, 200, white)
     title2=text("Revolt !", font, 200, textcolor)
-    #title2_outline=text("Revolt !", font, 200, white)
-    if selected=="start":
+    if selected%2 == 0:
         text_start=text("START <<<", font, 128, selectcolor)
     else:
         text_start = text("START", font, 128, white)
-    if selected=="quit":
+    if selected%2 == 1:
         text_quit=text("QUIT <<<", font, 128, selectcolor)
     else:
         text_quit = text("QUIT", font, 128, white)
-        
-    # Text Output
-    #screen.blit(title_outline, (27, 77))
-    #screen.blit(title_outline, (27, 83))
-    #screen.blit(title_outline, (21, 77))
-    #screen.blit(title_outline, (21, 83))
-    #screen.blit(title, (24, 90))
-    #screen.blit(title2_outline, (21, 163))
-    #screen.blit(title2_outline, (21, 157))
-    #screen.blit(title2_outline, (27, 163))
-    #screen.blit(title2_outline, (27, 157))
-    #screen.blit(title2, (24, 180))
     screen.blit(text_start, (580, 400))
     screen.blit(text_quit, (656, 480))
 
@@ -111,7 +97,7 @@ def showstar(starnum):
 # Menu
 def menu():
     menu=True
-    selected="start"
+    selected=0
     
     while menu:
         for event in pygame.event.get():
@@ -120,16 +106,19 @@ def menu():
                 quit()
             if event.type==pygame.KEYDOWN:
                 if event.key==pygame.K_UP:
-                    selected="start"
+                    selected += 1
                 elif event.key==pygame.K_DOWN:
-                    selected="quit"
+                    selected -= 1
                 if event.key==pygame.K_RETURN:
-                    if selected=="start":
+                    if selected%2 == 0: #Start
                         print("Start")
-                        pygame.draw.rect(screen, blue, (200,150,100,50))
-                        edb.ship_hud2(screen, edb.ship)
+                        screen.fill((0,0,0))
+                        #pygame.draw.rect(screen, blue, (200,150,100,50))
+                        #edb.ship_hud2(screen, edb.ship)
+                        #edb.card("1")
                         eventpress()
-                    if selected=="quit":
+                        #eventpress()
+                    if selected%2 == 1: #Quit
                         pygame.quit()
                         quit()
 
@@ -137,41 +126,39 @@ def menu():
         title_draw(selected)
         pygame.display.update()
         clock.tick(FPS)
-        pygame.display.set_caption("Galactic Revolt - Demo")
+        pygame.display.set_caption("Galactic Revolt!")
 
 def eventpress():
     eventpress=True
-    selected="1"
+    selected=0
 
     while eventpress:
         for event in pygame.event.get():
+            if event.type==pygame.QUIT:
+                pygame.quit()
+                quit()
             if event.type==pygame.KEYDOWN:
-                if event.key==pygame.K_1:
-                    selected="1"
-                elif event.key==pygame.K_2:
-                    selected="2"
-                elif event.key==pygame.K_3:
-                    selected="3"
-                elif event.key==pygame.K_4:
-                    selected="4"
-                elif event.key==pygame.K_5:
-                    selected="5"
+                if event.key==pygame.K_UP:
+                    selected -= 1
+                elif event.key==pygame.K_DOWN:
+                    selected += 1
                 if event.key==pygame.K_RETURN:
-                    if selected=="1":
+                    if selected%5 == 0:
                         print("1")
-                    elif selected=="2":
+                    elif selected%5 == 1:
                         print("2")
-                    elif selected=="3":
+                    elif selected%5 == 2:
                         print("3")
-                    elif selected=="4":
+                    elif selected%5 == 3:
                         print("4")
-                    elif selected=="5":
+                    elif selected%5 == 4:
                         print("5")
                     if selected=="quit":
                         pygame.quit()
                         quit()
         edb.card(selected)
         pygame.display.update()
+    time.sleep(5)
 
 
 #Initialize Game
