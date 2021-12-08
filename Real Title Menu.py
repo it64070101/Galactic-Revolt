@@ -81,18 +81,23 @@ def title_draw(selected):
     screen.blit(bg_big, [0, 0])
     title=text("Galactic", font, 200, textcolor)
     title2=text("Revolt !", font, 200, textcolor)
-    if selected%2 == 0:
-        text_start=text("START <<<", font, 128, selectcolor)
+    if selected%3 == 0:
+        text_start=text("START <<<", font, 100, selectcolor)
     else:
-        text_start = text("START", font, 128, white)
-    if selected%2 == 1:
-        text_quit=text("QUIT <<<", font, 128, selectcolor)
+        text_start = text("START", font, 100, white)
+    if selected%3 == 1:
+        text_quit=text("QUIT <<<", font, 100, selectcolor)
     else:
-        text_quit = text("QUIT", font, 128, white)
-    screen.blit(text_start, (580, 400))
-    screen.blit(text_quit, (656, 480))
+        text_quit = text("QUIT", font, 100, white)
+    if selected%3 == 2:
+        text_htp=text("How to play <<<", font, 100, selectcolor)
+    else:
+        text_htp = text("How to play", font, 100, white)
+    screen.blit(text_start, (480, 400))
+    screen.blit(text_htp, (480, 480))
+    screen.blit(text_quit, (480, 560))
 
-def showstar(starnum):
+def showstar():
     bg = pygame.transform.scale(pygame.image.load("Space.png").convert(), (1024, 768))
     screen.blit(bg, [0, 0])
     screen.blit(text("▮▮▮▮▮▮▯▯▯▯▯▯", font, 48, white), (512, 384))
@@ -124,7 +129,7 @@ def menu():
                     play_sound("Text.wav")
                     selected -= 1
                 if event.key==pygame.K_RETURN:
-                    if selected%2 == 0: #Start
+                    if selected%3 == 0: #Start
                         play_sound("Confirm.wav")
                         print("Start")
                         screen.fill((0,0,0))
@@ -133,11 +138,14 @@ def menu():
                         #pygame.draw.rect(screen, blue, (200,150,100,50))
                         #edb.ship_hud2(screen, edb.ship)
                         eventpress(cards)
-                    if selected%2 == 1: #Quit
+                    if selected%3 == 1: #Quit
                         play_sound("Cancel.wav")
                         time.sleep(1)
                         pygame.quit()
                         quit()
+                    if selected%3 == 2: #Howtoplay
+                        print("How to play")
+                        screen.fill((0,0,0))
 
         # UI Output
         title_draw(selected)
@@ -148,7 +156,7 @@ def menu():
 def eventpress(cards):
     eventpress=True
     selected=0
-
+    
     while eventpress:
         for event in pygame.event.get():
             if event.type==pygame.QUIT:
@@ -160,20 +168,24 @@ def eventpress(cards):
                 elif event.key==pygame.K_DOWN:
                     selected += 1
                 if event.key==pygame.K_RETURN:
-                    if selected%5 == 0:
+                    if selected%6 == 0:
                         print("1")
-                    elif selected%5 == 1:
+                    elif selected%6 == 1:
                         print("2")
-                    elif selected%5 == 2:
+                    elif selected%6 == 2:
                         print("3")
-                    elif selected%5 == 3:
+                    elif selected%6 == 3:
                         print("4")
-                    elif selected%5 == 4:
+                    elif selected%6 == 4:
                         print("5")
+                    elif selected%6 == 5:
+                        print("6")
                     if selected=="quit":
                         pygame.quit()
                         quit()
+        #edb.ship_hud2(screen, edb.ship)
         edb.card(selected, cards)
+        edb.ship_hud2(screen, edb.ship)
         pygame.display.update()
     time.sleep(5)
 

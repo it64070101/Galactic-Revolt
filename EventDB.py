@@ -50,6 +50,7 @@ purple=(98,24,245)
 textcolor=(62, 170, 174)
 outlinecolor=(140,104,121)
 selectcolor=(255, 170, 94)
+pink1=(255,67,164)
 
 # เพิ่มเฉพาะสี
 # เพิ่มคน
@@ -293,14 +294,15 @@ def test(screen):
     time.sleep(5)
     pygame.quit()
     quit()
-    
+#bg = pygame.transform.scale(pygame.image.load("Space_Background_4.png").convert_alpha(), (1024, 768))
+ui_1 = pygame.transform.scale(pygame.image.load("hud.png").convert_alpha(), (1024, 768))
 def ship_hud2(screen, ship): #สร้างหน้าบอก Resource
     """Make Ship pygame"""
-    bg = pygame.transform.scale(pygame.image.load("Space_Background_4.png").convert_alpha(), (1024, 768))
-    ui_1 = pygame.transform.scale(pygame.image.load("hud.png").convert_alpha(), (1024, 768))
-    screen.blit(bg, [0, 0])
+  #  bg = pygame.transform.scale(pygame.image.load("Space_Background_4.png").convert_alpha(), (1024, 768))
+   # ui_1 = pygame.transform.scale(pygame.image.load("hud.png").convert_alpha(), (1024, 768))
+    #screen.blit(bg, [0, 0])
     screen.blit(ui_1, [0, 0])
-    screen.blit(text("Star: %s" %starname[ship['current']], UIfont, 36, textcolor), (64, 32))
+    screen.blit(text("Star %d: %s" %(ship['current']+1, starname[ship['current']]), UIfont, 36, textcolor), (64, 32))
     #screen.blit(text("╔"+"═"*49+"╗", UIfont, 48, blue1), (700, 50))
     screen.blit(text("HULL: "+("O"*ship['hull'][0])+"-"*(ship['hull'][1]-ship['hull'][0]), UIfont, 24, white), (256, 576))
     screen.blit(text("%02d %s " %(ship['man'], man), UIfont, 24, green), (256, 640))
@@ -308,43 +310,48 @@ def ship_hud2(screen, ship): #สร้างหน้าบอก Resource
     screen.blit(text("%d/%d %s " %(ship['blue'][0], ship['blue'][1], blue), UIfont, 24, white), (704, 620))
     screen.blit(text("%d/%d %s " %(ship['yellow'][0], ship['yellow'][1], yellow), UIfont, 24, white), (704, 660))
     #screen.blit(text("╚"+"═"*49+"╝", UIfont, 48, black), (700, 200))
-    screen.blit(text(events["Recruit"], UIfont, 10, white), (box*1, box*2))
-    screen.blit(text(events["Recovery1"], UIfont, 10, white), (box*1, box*3))   
-    screen.blit(text(events["Bad1"], UIfont, 10, white), (box*1, box*4))   
-    screen.blit(text(events["Bad2"], UIfont, 10, white), (box*1, box*5))
-    screen.blit(text(events["Bad2"], UIfont, 10, white), (box*1, box*5))          
+    #screen.blit(text(events["Recruit"], UIfont, 10, white), (box*1, box*2))
+    #screen.blit(text(events["Recovery1"], UIfont, 10, white), (box*1, box*3))   
+    #screen.blit(text(events["Bad1"], UIfont, 10, white), (box*1, box*4))   
+    #screen.blit(text(events["Bad2"], UIfont, 10, white), (box*1, box*5))
+    #screen.blit(text(events["Bad2"], UIfont, 10, white), (box*1, box*5))          
     pygame.display.update()
-    time.sleep(5)
+   # time.sleep(5)
 
 bg_big = pygame.image.load("Space Background.png").convert()
 def card(selected, cards):
     """card ui"""
     screen.blit(bg_big, [0, 0])
-    if selected%5 == 0:
+    if selected%6 == 0:
         text_1 = text("%s <<" %events[cards[0]], UIfont, 24, selectcolor)
     else:
         text_1 = text("%s" %cards[0], UIfont, 24, white)
-    if selected%5 == 1:
-        text_2=text("%s <<" %cards[1], UIfont, 24, selectcolor)
+    if selected%6 == 1:
+        text_2=text("%s <<" %events[cards[1]], UIfont, 24, selectcolor)
     else:
         text_2 = text("%s" %cards[1], UIfont, 24, white)
-    if selected%5 == 2:
-        text_3 = text("%s <<" %cards[2], UIfont, 24, selectcolor)
+    if selected%6 == 2:
+        text_3 = text("%s <<" %events[cards[2]], UIfont, 24, selectcolor)
     else:
         text_3 = text("%s" %cards[2], UIfont, 24, white)
-    if selected%5 == 3:
-        text_4 = text("%s <<" %cards[3], UIfont, 24, selectcolor)
+    if selected%6 == 3:
+        text_4 = text("%s <<" %events[cards[3]], UIfont, 24, selectcolor)
     else:
         text_4 = text("%s" %cards[3], UIfont, 24, white)
-    if selected%5 == 4:
-        text_5 = text("%s <<" %cards[4], UIfont, 24, selectcolor)
+    if selected%6 == 4:
+        text_5 = text("%s <<" %events[cards[4]], UIfont, 24, selectcolor)
     else:
         text_5 = text("%s" %cards[4], UIfont, 24, white)
+    if selected%6 == 5:
+        text_6 = text(">> SKIPPED <<", UIfont, 24, red1)
+    else:
+        text_6 = text(">> SKIPPED", UIfont, 24, pink1)
     
     screen.blit(text_1, (64, 120))
-    screen.blit(text_2, (64, 160))
-    screen.blit(text_3, (64, 200))
-    screen.blit(text_4, (64, 240))
-    screen.blit(text_5, (64, 280))
+    screen.blit(text_2, (64, 180))
+    screen.blit(text_3, (64, 240))
+    screen.blit(text_4, (64, 300))
+    screen.blit(text_5, (64, 360))
+    screen.blit(text_6, (64, 420))
     #pygame.display.update()
     # time.sleep(5)
