@@ -20,21 +20,21 @@ def text(message, textFont, textSize, textColor):
     return newText
 
 ship = {
-        "hull" : [1, 10],
-        "red" : [1, 1], #♞ Trooper
-        "blue" : [1, 1], #♝ Supporter
-        "yellow" : [1, 1], #♜ Engineer
-        "man" : 10, #♟
+        "hull" : [5, 10],
+        "red" : [1, 1], # Trooper
+        "blue" : [1, 1], # Supporter
+        "yellow" : [1, 1], # Engineer
+        "man" : 10, # Power
         "current" : 0,
         "boss" : 25
     }
-red = "T"
-blue = "S"
-yellow = "E"
+red = "Tro"
+blue = "Sup"
+yellow = "Eng"
 man = "Power"
 
-font = "PressStart2P.ttf"
-UIfont = "PressStart2P.ttf"
+font = "Fonts/ZF#2ndPixelus.ttf"
+UIfont = "Fonts/ZF#2ndPixelus.ttf"
 box = 64
 
 white=(255, 255, 255)
@@ -67,13 +67,13 @@ pink1=(255,67,164)
 # ไม่ทำมี Damage
 
 events = {
-    "Recruit" : "%s + %s + %s → %s" %(red, blue ,yellow, man),
+    "Recruit" : "%s + %s + %s -> %s" %(red, blue ,yellow, man),
     "Recovery1" : "-2 %s to +1 HULL" %(man),
     "Recovery2" : "-2 %s to +1 HULL" %(man),
     "Recovery3" : "-2 %s to +1 HULL" %(man),
-    "EV2" : "-1 %s → +1 MAX %s" %(man, red),
-    "EV3" : "-1 %s → +1 MAX %s" %(man, blue),
-    "EV4" : "-1 %s → +1 MAX %s" %(man, yellow),
+    "EV2" : "-1 %s -> +1 MAX %s" %(man, red),
+    "EV3" : "-1 %s -> +1 MAX %s" %(man, blue),
+    "EV4" : "-1 %s -> +1 MAX %s" %(man, yellow),
     "Bad1" : "2 %s to avoid -1 HULL" %yellow,
     "Bad2" : "2 %s to avoid -2 %s" %(blue, man),
     "Bad3" : "2 %s to avoid -1 %s and -1 %s" %(red, blue, yellow),
@@ -287,7 +287,7 @@ def bonus_event():
         print("Trigger")
 
 def test(screen):
-    bg = pygame.transform.scale(pygame.image.load("test.png").convert(), (1024, 768))
+    bg = pygame.transform.scale(pygame.image.load("Images/test.png").convert(), (1024, 768))
     screen.blit(bg, [0, 0])
     screen.blit(text("Stage %d" %ship['current'], font, 48, white), (512, 384))
     pygame.display.update()
@@ -295,20 +295,20 @@ def test(screen):
     pygame.quit()
     quit()
 #bg = pygame.transform.scale(pygame.image.load("Space_Background_4.png").convert_alpha(), (1024, 768))
-ui_1 = pygame.transform.scale(pygame.image.load("hud.png").convert_alpha(), (1024, 768))
+ui_1 = pygame.transform.scale(pygame.image.load("Images/hud.png").convert_alpha(), (1024, 768))
 def ship_hud2(screen, ship): #สร้างหน้าบอก Resource
     """Make Ship pygame"""
   #  bg = pygame.transform.scale(pygame.image.load("Space_Background_4.png").convert_alpha(), (1024, 768))
    # ui_1 = pygame.transform.scale(pygame.image.load("hud.png").convert_alpha(), (1024, 768))
     #screen.blit(bg, [0, 0])
     screen.blit(ui_1, [0, 0])
-    screen.blit(text("Star %d: %s" %(ship['current']+1, starname[ship['current']]), UIfont, 36, textcolor), (64, 32))
+    screen.blit(text("Star %d: %s" %(ship['current']+1, starname[ship['current']]), UIfont, 64, textcolor), (64, 32))
     #screen.blit(text("╔"+"═"*49+"╗", UIfont, 48, blue1), (700, 50))
-    screen.blit(text("HULL: "+("O"*ship['hull'][0])+"-"*(ship['hull'][1]-ship['hull'][0]), UIfont, 24, white), (256, 576))
-    screen.blit(text("%02d %s " %(ship['man'], man), UIfont, 24, green), (256, 640))
-    screen.blit(text("%d/%d %s " %(ship['red'][0], ship['red'][1], red), UIfont, 24, white), (704, 580))
-    screen.blit(text("%d/%d %s " %(ship['blue'][0], ship['blue'][1], blue), UIfont, 24, white), (704, 620))
-    screen.blit(text("%d/%d %s " %(ship['yellow'][0], ship['yellow'][1], yellow), UIfont, 24, white), (704, 660))
+    screen.blit(text("HULL: "+("O"*ship['hull'][0])+"-"*(ship['hull'][1]-ship['hull'][0]), UIfont, 64, white), (256, 576))
+    screen.blit(text("%02d %s " %(ship['man'], man), UIfont, 64, green), (256, 640))
+    screen.blit(text("%d/%d %s " %(ship['red'][0], ship['red'][1], red), UIfont, 64, white), (704, 580))
+    screen.blit(text("%d/%d %s " %(ship['blue'][0], ship['blue'][1], blue), UIfont, 64, white), (704, 620))
+    screen.blit(text("%d/%d %s " %(ship['yellow'][0], ship['yellow'][1], yellow), UIfont, 64, white), (704, 660))
     #screen.blit(text("╚"+"═"*49+"╝", UIfont, 48, black), (700, 200))
     #screen.blit(text(events["Recruit"], UIfont, 10, white), (box*1, box*2))
     #screen.blit(text(events["Recovery1"], UIfont, 10, white), (box*1, box*3))   
@@ -318,34 +318,34 @@ def ship_hud2(screen, ship): #สร้างหน้าบอก Resource
     pygame.display.update()
    # time.sleep(5)
 
-bg_big = pygame.image.load("Space Background.png").convert()
+bg_big = pygame.image.load("Images/Space Background.png").convert()
 def card(selected, cards):
     """card ui"""
     screen.blit(bg_big, [0, 0])
     if selected%6 == 0:
-        text_1 = text("%s <<" %events[cards[0]], UIfont, 24, selectcolor)
+        text_1 = text("%s <<" %events[cards[0]], UIfont, 64, selectcolor)
     else:
-        text_1 = text("%s" %cards[0], UIfont, 24, white)
+        text_1 = text("%s" %cards[0], UIfont, 64, white)
     if selected%6 == 1:
-        text_2=text("%s <<" %events[cards[1]], UIfont, 24, selectcolor)
+        text_2=text("%s <<" %events[cards[1]], UIfont, 64, selectcolor)
     else:
-        text_2 = text("%s" %cards[1], UIfont, 24, white)
+        text_2 = text("%s" %cards[1], UIfont, 64, white)
     if selected%6 == 2:
-        text_3 = text("%s <<" %events[cards[2]], UIfont, 24, selectcolor)
+        text_3 = text("%s <<" %events[cards[2]], UIfont, 64, selectcolor)
     else:
-        text_3 = text("%s" %cards[2], UIfont, 24, white)
+        text_3 = text("%s" %cards[2], UIfont, 64, white)
     if selected%6 == 3:
-        text_4 = text("%s <<" %events[cards[3]], UIfont, 24, selectcolor)
+        text_4 = text("%s <<" %events[cards[3]], UIfont, 64, selectcolor)
     else:
-        text_4 = text("%s" %cards[3], UIfont, 24, white)
+        text_4 = text("%s" %cards[3], UIfont, 64, white)
     if selected%6 == 4:
-        text_5 = text("%s <<" %events[cards[4]], UIfont, 24, selectcolor)
+        text_5 = text("%s <<" %events[cards[4]], UIfont, 64, selectcolor)
     else:
-        text_5 = text("%s" %cards[4], UIfont, 24, white)
+        text_5 = text("%s" %cards[4], UIfont, 64, white)
     if selected%6 == 5:
-        text_6 = text(">> SKIPPED <<", UIfont, 24, red1)
+        text_6 = text(">> Next Star >>", UIfont, 64, red1)
     else:
-        text_6 = text(">> SKIPPED", UIfont, 24, pink1)
+        text_6 = text(">> Next Star", UIfont, 64, pink1)
     
     screen.blit(text_1, (64, 120))
     screen.blit(text_2, (64, 180))

@@ -67,12 +67,12 @@ outlinecolor=(140,104,121)
 selectcolor=(255, 170, 94)
 
 # Game Background
-bg = pygame.image.load("title.png").convert()
+bg = pygame.image.load("Images/title.png").convert()
 bg_big = pygame.transform.scale(bg, (1024, 768))
 
 # Game Font
 font = "PressStart2P.ttf"
-font = "ZF#2ndPixelus.ttf"
+font = "Fonts/ZF#2ndPixelus.ttf"
 # Game Framerate
 clock = pygame.time.Clock()
 FPS=30
@@ -98,12 +98,12 @@ def title_draw(selected):
     screen.blit(text_quit, (480, 560))
 
 def showstar():
-    bg = pygame.transform.scale(pygame.image.load("Space.png").convert(), (1024, 768))
+    bg = pygame.transform.scale(pygame.image.load("Images/Space.png").convert(), (1024, 768))
     screen.blit(bg, [0, 0])
     screen.blit(text("▮▮▮▮▮▮▯▯▯▯▯▯", font, 48, white), (512, 384))
     pygame.display.update()
     time.sleep(3)
-    bg = pygame.transform.scale(pygame.image.load("test.png").convert(), (1024, 768))
+    bg = pygame.transform.scale(pygame.image.load("Images/test.png").convert(), (1024, 768))
     screen.blit(bg, [0, 0])
     pygame.display.update()
     time.sleep(3)
@@ -114,8 +114,7 @@ def showstar():
 def menu():
     menu=True
     selected=0
-    #play_sound()
-    play_music("menu.wav")
+    #play_music("menu.wav")
     while menu:
         for event in pygame.event.get():
             if event.type==pygame.QUIT:
@@ -123,14 +122,14 @@ def menu():
                 quit()
             if event.type==pygame.KEYDOWN:
                 if event.key==pygame.K_UP:
-                    play_sound("Text.wav")
+                    # play_sound("Text.wav")
                     selected += 1
                 elif event.key==pygame.K_DOWN:
-                    play_sound("Text.wav")
+                    # play_sound("Text.wav")
                     selected -= 1
                 if event.key==pygame.K_RETURN:
                     if selected%3 == 0: #Start
-                        play_sound("Confirm.wav")
+                        # play_sound("Confirm.wav")
                         print("Start")
                         screen.fill((0,0,0))
                         cards = edb.sector_cards()
@@ -139,7 +138,7 @@ def menu():
                         #edb.ship_hud2(screen, edb.ship)
                         eventpress(cards)
                     if selected%3 == 1: #Quit
-                        play_sound("Cancel.wav")
+                        # play_sound("Cancel.wav")
                         time.sleep(1)
                         pygame.quit()
                         quit()
