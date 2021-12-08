@@ -141,6 +141,7 @@ def sector_cards(): #สุ่มว่าจะมีการ์ดออก�
         num = 4
     else:
         num = 5
+    num = 5
     cards = random_event(all_event, num)
     return cards
 
@@ -316,29 +317,29 @@ def ship_hud2(screen, ship): #สร้างหน้าบอก Resource
     time.sleep(5)
 
 bg_big = pygame.image.load("Space Background.png").convert()
-def card(selected):
+def card(selected, cards):
     """card ui"""
     screen.blit(bg_big, [0, 0])
     if selected%5 == 0:
-        text_1 = text("(1) <<", UIfont, 24, selectcolor)
+        text_1 = text("%s <<" %events[cards[0]], UIfont, 24, selectcolor)
     else:
-        text_1 = text("(1)", UIfont, 24, white)
+        text_1 = text("%s" %cards[0], UIfont, 24, white)
     if selected%5 == 1:
-        text_2=text("(2) <<", UIfont, 24, selectcolor)
+        text_2=text("%s <<" %cards[1], UIfont, 24, selectcolor)
     else:
-        text_2 = text("(2)", UIfont, 24, white)
+        text_2 = text("%s" %cards[1], UIfont, 24, white)
     if selected%5 == 2:
-        text_3 = text("(3) <<", UIfont, 24, selectcolor)
+        text_3 = text("%s <<" %cards[2], UIfont, 24, selectcolor)
     else:
-        text_3 = text("(3)", UIfont, 24, white)
+        text_3 = text("%s" %cards[2], UIfont, 24, white)
     if selected%5 == 3:
-        text_4 = text("(4) <<", UIfont, 24, selectcolor)
+        text_4 = text("%s <<" %cards[3], UIfont, 24, selectcolor)
     else:
-        text_4 = text("(4)", UIfont, 24, white)
+        text_4 = text("%s" %cards[3], UIfont, 24, white)
     if selected%5 == 4:
-        text_5 = text("(5) <<", UIfont, 24, selectcolor)
+        text_5 = text("%s <<" %cards[4], UIfont, 24, selectcolor)
     else:
-        text_5 = text("(5)", UIfont, 24, white)
+        text_5 = text("%s" %cards[4], UIfont, 24, white)
     
     screen.blit(text_1, (64, 120))
     screen.blit(text_2, (64, 160))

@@ -1,6 +1,8 @@
 import pygame
 from pygame.locals import *
 import os
+
+from pygame.mixer import Sound
 import EventDB as edb
 import time
 
@@ -14,6 +16,15 @@ os.environ['SDL_VIDEO_CENTERED'] = '1'
 screen_width=1024
 screen_height=768
 screen=pygame.display.set_mode((screen_width, screen_height))
+
+def play_sound(sound):
+    my_sound = pygame.mixer.Sound(sound)
+    my_sound.set_volume(0.5)
+    my_sound.play()
+def play_music(music):
+    pygame.mixer.music.set_volume(0.3)
+    pygame.mixer.music.load(music)
+    pygame.mixer.music.play(-1)
 
 # Text format for render
 def text(message, textFont, textSize, textColor):
@@ -98,7 +109,8 @@ def showstar(starnum):
 def menu():
     menu=True
     selected=0
-    
+    #play_sound()
+    play_music("menu.wav")
     while menu:
         for event in pygame.event.get():
             if event.type==pygame.QUIT:
@@ -106,19 +118,24 @@ def menu():
                 quit()
             if event.type==pygame.KEYDOWN:
                 if event.key==pygame.K_UP:
+                    play_sound("Text.wav")
                     selected += 1
                 elif event.key==pygame.K_DOWN:
+                    play_sound("Text.wav")
                     selected -= 1
                 if event.key==pygame.K_RETURN:
                     if selected%2 == 0: #Start
+                        play_sound("Confirm.wav")
                         print("Start")
                         screen.fill((0,0,0))
+                        cards = edb.sector_cards()
+                        print(cards)
                         #pygame.draw.rect(screen, blue, (200,150,100,50))
                         #edb.ship_hud2(screen, edb.ship)
-                        #edb.card("1")
-                        eventpress()
-                        #eventpress()
+                        eventpress(cards)
                     if selected%2 == 1: #Quit
+                        play_sound("Cancel.wav")
+                        time.sleep(1)
                         pygame.quit()
                         quit()
 
@@ -128,7 +145,7 @@ def menu():
         clock.tick(FPS)
         pygame.display.set_caption("Galactic Revolt!")
 
-def eventpress():
+def eventpress(cards):
     eventpress=True
     selected=0
 
@@ -156,7 +173,7 @@ def eventpress():
                     if selected=="quit":
                         pygame.quit()
                         quit()
-        edb.card(selected)
+        edb.card(selected, cards)
         pygame.display.update()
     time.sleep(5)
 
