@@ -105,9 +105,12 @@ bad_events = {
     "Bad1" : "2 %s to avoid -2 HULL" %yellow,
     "Bad2" : "2 %s to avoid -2 %s" %(blue, man),
     "Bad3" : "2 %s to avoid -1 %s and -1 %s" %(red, blue, yellow),
-    "Bonus1" : "+2 %s" %(man),
+    #"Bonus1" : "+2 %s" %(man),
     "VeryBad1" : "2 %s to avoid -1 %s" %(red, man),
-    "Bonus2" : "+1 %s %s %s" %(red, blue, yellow)
+    #"Bonus2" : "+1 %s %s %s" %(red, blue, yellow)
+    "VeryBad2" : "2 %s to avoid -1 %s" %(yellow, man),
+    "VeryBad3" : "2 %s to avoid -1 %s" %(blue, man),
+    "Goduck1" : "-1 All Resource to avoid -2 %s" %man,
 }
 def ship_hud(ship): #สร้างหน้าบอก Resource
     """Make Ship HUD"""
@@ -268,6 +271,12 @@ def bad_event(evt):
         ship["yellow"][1] -= 1
     elif evt == "VeryBad1":
         ship["man"] -= 1
+    elif evt == "VeryBad2":
+        ship["man"] -= 1
+    elif evt == "VeryBad3":
+        ship["man"] -= 1
+    elif evt == "Goduck1":
+        ship["man"] -= 2
 
 def bonus_event():
     """Random Bonus Event"""
