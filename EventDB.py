@@ -13,14 +13,14 @@ screen=pygame.display.set_mode((screen_width, screen_height))
 
 clock = pygame.time.Clock()
 FPS=30
-
+used = "used"
 def text(message, textFont, textSize, textColor):
     newFont=pygame.font.Font(textFont, textSize)
     newText=newFont.render(message, 0, textColor)
     return newText
 
 ship = {
-        "hull" : [5, 10],
+        "hull" : [10, 10],
         "red" : [1, 1], # Trooper
         "blue" : [1, 1], # Supporter
         "yellow" : [1, 1], # Engineer
@@ -261,6 +261,8 @@ def event(evt): #ใช้งานอีเวนต์
         ship["yellow"][1] -= 1
     else:
         print("no")
+        return False
+    return True
 
 def bad_event(evt):
     """Trigger Bad Event"""
@@ -317,31 +319,34 @@ def ship_hud2(screen, ship): #สร้างหน้าบอก Resource
     #screen.blit(text(events["Bad2"], UIfont, 10, white), (box*1, box*5))          
     pygame.display.update()
    # time.sleep(5)
+def showused(card):
+    """changeName"""
+    return "used" if card == False else card
 
 bg_big = pygame.image.load("Images/Space Background.png").convert()
 def card(selected, cards):
     """card ui"""
     screen.blit(bg_big, [0, 0])
     if selected%6 == 0:
-        text_1 = text("%s <<" %events[cards[0]], UIfont, 64, selectcolor)
+        text_1 = text("%s <<" %events.get(cards[0], used), UIfont, 64, selectcolor)
     else:
-        text_1 = text("%s" %cards[0], UIfont, 64, white)
+        text_1 = text("%s" %showused(cards[0]), UIfont, 64, white)
     if selected%6 == 1:
-        text_2=text("%s <<" %events[cards[1]], UIfont, 64, selectcolor)
+        text_2=text("%s <<" %events.get(cards[1], used), UIfont, 64, selectcolor)
     else:
-        text_2 = text("%s" %cards[1], UIfont, 64, white)
+        text_2 = text("%s" %showused(cards[1]), UIfont, 64, white)
     if selected%6 == 2:
-        text_3 = text("%s <<" %events[cards[2]], UIfont, 64, selectcolor)
+        text_3 = text("%s <<" %events.get(cards[2], used), UIfont, 64, selectcolor)
     else:
-        text_3 = text("%s" %cards[2], UIfont, 64, white)
+        text_3 = text("%s" %showused(cards[2]), UIfont, 64, white)
     if selected%6 == 3:
-        text_4 = text("%s <<" %events[cards[3]], UIfont, 64, selectcolor)
+        text_4 = text("%s <<" %events.get(cards[3], used), UIfont, 64, selectcolor)
     else:
-        text_4 = text("%s" %cards[3], UIfont, 64, white)
+        text_4 = text("%s" %showused(cards[3]), UIfont, 64, white)
     if selected%6 == 4:
-        text_5 = text("%s <<" %events[cards[4]], UIfont, 64, selectcolor)
+        text_5 = text("%s <<" %events.get(cards[4], used), UIfont, 64, selectcolor)
     else:
-        text_5 = text("%s" %cards[4], UIfont, 64, white)
+        text_5 = text("%s" %showused(cards[4]), UIfont, 64, white)
     if selected%6 == 5:
         text_6 = text(">> Next Star >>", UIfont, 64, red1)
     else:

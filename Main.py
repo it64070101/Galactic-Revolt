@@ -131,10 +131,7 @@ def menu():
                     if selected%3 == 0: #Start
                         # play_sound("Confirm.wav")
                         print("Start")
-                        screen.fill((0,0,0))
-                        cards = edb.sector_cards()
-                        print(cards)
-                        eventpress(cards)
+                        statecheck()
                     if selected%3 == 1: #Quit
                         # play_sound("Cancel.wav")
                         time.sleep(1)
@@ -149,13 +146,45 @@ def menu():
         pygame.display.update()
         clock.tick(FPS)
         pygame.display.set_caption("Galactic Revolt!")
+def statecheck():
+    """Nextstar"""
+    edb.ship = {
+        "hull" : [10, 10],
+        "red" : [1, 1], # Trooper
+        "blue" : [1, 1], # Supporter
+        "yellow" : [1, 1], # Engineer
+        "man" : 10, # Power
+        "current" : 0,
+        "boss" : 25
+    }
+    win = True
+    while edb.ship['current'] < 4 and win == True:
+        screen.fill((0,0,0))
+        cards = edb.sector_cards()
+        print(cards)
+        win = eventpress(cards)
+        #check
+        for values in edb.bad_events:
+            if values in cards:
+                edb.bad_event(values)
+                print('------------------------Trigger', values)
+        edb.ship["current"]+= 1
+        edb.ship["man"]-= 1
+    if not win and edb.ship["man"] <= edb.ship["boss"]:
+        print("You Lose")
+    else:
+        print("You Win")
+
 
 def eventpress(cards):
     eventpress=True
     selected=0
+    cards1 = True
     
     while eventpress:
         for event in pygame.event.get():
+            if edb.ship["hull"][0] <= 0 or edb.ship["man"] <= 0:
+                return False
             if event.type==pygame.QUIT:
                 pygame.quit()
                 quit()
@@ -165,18 +194,29 @@ def eventpress(cards):
                 elif event.key==pygame.K_DOWN:
                     selected += 1
                 if event.key==pygame.K_RETURN:
-                    if selected%6 == 0:
-                        print("1")
+                    if selected%6 == 0 and cards[0]:
+                        print(edb.events[cards[0]])
+                        canuse = edb.event(cards[0])
+                        if canuse:
+                            cards[0] = False
                     elif selected%6 == 1:
-                        print("2")
+                        canuse = edb.event(cards[1])
+                        if canuse:
+                            cards[1] = False
                     elif selected%6 == 2:
-                        print("3")
+                        canuse = edb.event(cards[2])
+                        if canuse:
+                            cards[2] = False
                     elif selected%6 == 3:
-                        print("4")
+                        canuse = edb.event(cards[3])
+                        if canuse:
+                            cards[3] = False
                     elif selected%6 == 4:
-                        print("5")
+                        canuse = edb.event(cards[4])
+                        if canuse:
+                            cards[4] = False
                     elif selected%6 == 5:
-                        print("6")
+                        return True
                     if selected=="quit":
                         pygame.quit()
                         quit()
