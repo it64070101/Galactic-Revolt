@@ -322,11 +322,10 @@ def ship_hud2(screen, ship): #สร้างหน้าบอก Resource
 def showused(card):
     """changeName"""
     return "used" if card == False else card
-
-bg_big = pygame.image.load("Images/Space Background.png").convert()
-def card(selected, cards):
+#bg_big = pygame.image.load("Images/Stars/%d.png" %).convert()
+def card(selected, cards, bg):
     """card ui"""
-    screen.blit(bg_big, [0, 0])
+    screen.blit(pygame.image.load("Images/Stars/%d.png" %bg).convert(), [0, 0])
     if selected%6 == 0:
         text_1 = text("%s <<" %events.get(cards[0], used), UIfont, 64, selectcolor)
     else:

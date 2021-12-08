@@ -5,6 +5,7 @@ import os
 from pygame.mixer import Sound
 import EventDB as edb
 import time
+import random
 
 # Install Pygame
 pygame.init()
@@ -69,6 +70,8 @@ selectcolor=(255, 170, 94)
 # Game Background
 bg = pygame.image.load("Images/title.png").convert()
 bg_big = pygame.transform.scale(bg, (1024, 768))
+all_bg = [i+1 for i in range(12)]
+random.shuffle(all_bg)
 
 # Game Font
 font = "PressStart2P.ttf"
@@ -179,8 +182,7 @@ def statecheck():
 def eventpress(cards):
     eventpress=True
     selected=0
-    cards1 = True
-    
+    bg = all_bg.pop()
     while eventpress:
         for event in pygame.event.get():
             if edb.ship["hull"][0] <= 0 or edb.ship["man"] <= 0:
@@ -221,7 +223,7 @@ def eventpress(cards):
                         pygame.quit()
                         quit()
         #edb.ship_hud2(screen, edb.ship)
-        edb.card(selected, cards)
+        edb.card(selected, cards, bg)
         edb.ship_hud2(screen, edb.ship)
         pygame.display.update()
     time.sleep(5)
