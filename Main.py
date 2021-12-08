@@ -122,7 +122,6 @@ def menu():
                 quit()
             if event.type==pygame.KEYDOWN:
                 if event.key==pygame.K_UP:
-<<<<<<< Updated upstream:Main.py
                     # play_sound("Text.wav")
                     selected += 1
                 elif event.key==pygame.K_DOWN:
@@ -131,30 +130,13 @@ def menu():
                 if event.key==pygame.K_RETURN:
                     if selected%3 == 0: #Start
                         # play_sound("Confirm.wav")
-=======
-                    #play_sound("Text.wav")
-                    selected += 1
-                elif event.key==pygame.K_DOWN:
-                    #play_sound("Text.wav")
-                    selected -= 1
-                if event.key==pygame.K_RETURN:
-                    if selected%2 == 0: #Start
-                        #play_sound("Confirm.wav")
->>>>>>> Stashed changes:Real Title Menu.py
                         print("Start")
                         screen.fill((0,0,0))
                         cards = edb.sector_cards()
                         print(cards)
-                        #pygame.draw.rect(screen, blue, (200,150,100,50))
-                        #edb.ship_hud2(screen, edb.ship)
                         eventpress(cards)
-<<<<<<< Updated upstream:Main.py
                     if selected%3 == 1: #Quit
                         # play_sound("Cancel.wav")
-=======
-                    if selected%2 == 1: #Quit
-                        #play_sound("Cancel.wav")
->>>>>>> Stashed changes:Real Title Menu.py
                         time.sleep(1)
                         pygame.quit()
                         quit()
