@@ -179,15 +179,32 @@ def statecheck():
     if not win or edb.ship["man"] <= edb.ship["boss"]:
         play_music("Audio/lose.wav")
         bg = pygame.transform.scale(pygame.image.load("Images/lose.jpg").convert(), (1024, 768))
-        screen.blit(bg, [0, 0])
-        pygame.display.update()
-        time.sleep(3)
+        # screen.blit(bg, [0, 0])
+        runing = True
+        while runing:
+            screen.blit(bg,(0,0))
+            for event in pygame.event.get():
+                if event.type==pygame.KEYDOWN:
+                    if event.key==pygame.K_x:
+                        runing = False
+            pygame.display.update()
+        menu()
+        # pygame.display.update()
+        # time.sleep(3)
     else:
         play_music("Audio/win.wav")
         bg = pygame.transform.scale(pygame.image.load("Images/win.jpg").convert(), (1024, 768))
-        screen.blit(bg, [0, 0])
-        pygame.display.update()
-        time.sleep(3)
+        # screen.blit(bg, [0, 0])
+        while runing:
+            screen.blit(bg,(0,0))
+            for event in pygame.event.get():
+                if event.type==pygame.KEYDOWN:
+                    if event.key==pygame.K_x:
+                        runing = False
+            pygame.display.update()
+        menu()
+        # pygame.display.update()
+        # time.sleep(3)
     play_music("Audio/menu.wav")
 
 def eventpress(cards):
