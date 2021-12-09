@@ -185,7 +185,6 @@ def statecheck():
             screen.blit(bg,(0,0))
             for event in pygame.event.get():
                 if event.type==pygame.KEYDOWN:
-                    if event.key==pygame.K_x:
                         runing = False
             pygame.display.update()
         menu()
@@ -200,7 +199,6 @@ def statecheck():
             screen.blit(bg,(0,0))
             for event in pygame.event.get():
                 if event.type==pygame.KEYDOWN:
-                    if event.key==pygame.K_x:
                         runing = False
             pygame.display.update()
         menu()
