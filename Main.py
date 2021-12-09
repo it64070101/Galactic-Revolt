@@ -143,7 +143,7 @@ def menu():
                     if selected%3 == 2: #Howtoplay
                         play_sound("Audio/Confirm.wav")
                         print("How to play")
-                        screen.fill((0,0,0))
+                        howtoplay()
 
         # UI Output
         title_draw(selected)
@@ -195,6 +195,7 @@ def statecheck():
         play_music("Audio/win.wav")
         bg = pygame.transform.scale(pygame.image.load("Images/win.jpg").convert(), (1024, 768))
         # screen.blit(bg, [0, 0])
+        runing = True
         while runing:
             screen.blit(bg,(0,0))
             for event in pygame.event.get():
@@ -206,6 +207,19 @@ def statecheck():
         # pygame.display.update()
         # time.sleep(3)
     play_music("Audio/menu.wav")
+
+def howtoplay():
+    """how to play"""
+    # play_music("Audio/menu.wav")
+    bg = pygame.transform.scale(pygame.image.load("Images/cosette.jpg").convert(), (1024, 768))
+    runing = True
+    while runing:
+        screen.blit(bg,(0,0))
+        for event in pygame.event.get():
+            if event.type==pygame.KEYDOWN:
+                    runing = False
+        pygame.display.update()
+    menu()
 
 def eventpress(cards):
     eventpress=True
