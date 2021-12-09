@@ -20,7 +20,7 @@ screen=pygame.display.set_mode((screen_width, screen_height))
 
 def play_sound(sound):
     my_sound = pygame.mixer.Sound(sound)
-    my_sound.set_volume(0.5)
+    my_sound.set_volume(0.3)
     my_sound.play()
 def play_music(music):
     pygame.mixer.music.set_volume(0.3)
@@ -117,30 +117,31 @@ def showstar():
 def menu():
     menu=True
     selected=0
-    #play_music("menu.wav")
+    play_music("Audio/menu.wav")
     while menu:
         for event in pygame.event.get():
             if event.type==pygame.QUIT:
                 pygame.quit()
                 quit()
             if event.type==pygame.KEYDOWN:
-                if event.key==pygame.K_UP:
-                    # play_sound("Text.wav")
+                if event.key==pygame.K_UP or event.key==pygame.K_w:
+                    play_sound("Audio/Text.wav")
                     selected += 1
-                elif event.key==pygame.K_DOWN:
-                    # play_sound("Text.wav")
+                elif event.key==pygame.K_DOWN or event.key==pygame.K_s:
+                    play_sound("Audio/Text.wav")
                     selected -= 1
-                if event.key==pygame.K_RETURN:
+                if event.key==pygame.K_RETURN or event.key==pygame.K_SPACE:
                     if selected%3 == 0: #Start
-                        # play_sound("Confirm.wav")
+                        play_sound("Audio/Confirm.wav")
                         print("Start")
                         statecheck()
                     if selected%3 == 1: #Quit
-                        # play_sound("Cancel.wav")
+                        play_sound("Audio/Cancel.wav")
                         time.sleep(1)
                         pygame.quit()
                         quit()
                     if selected%3 == 2: #Howtoplay
+                        play_sound("Audio/Confirm.wav")
                         print("How to play")
                         screen.fill((0,0,0))
 
@@ -151,6 +152,7 @@ def menu():
         pygame.display.set_caption("Galactic Revolt!")
 def statecheck():
     """Nextstar"""
+    play_music("Audio/play.wav")
     edb.ship = {
         "hull" : [10, 10],
         "red" : [1, 1], # Trooper
@@ -162,6 +164,7 @@ def statecheck():
     }
     win = True
     while edb.ship['current'] < 4 and win == True:
+        play_sound("Audio/start-level.wav")
         screen.fill((0,0,0))
         cards = edb.sector_cards()
         print(cards)
@@ -170,14 +173,22 @@ def statecheck():
         for values in edb.bad_events:
             if values in cards:
                 edb.bad_event(values)
-                print('------------------------Trigger', values)
+                # print('------------------------Trigger', values)
         edb.ship["current"]+= 1
         edb.ship["man"]-= 1
-    if not win and edb.ship["man"] <= edb.ship["boss"]:
-        print("You Lose")
+    if not win or edb.ship["man"] <= edb.ship["boss"]:
+        play_music("Audio/lose.wav")
+        bg = pygame.transform.scale(pygame.image.load("Images/lose.jpg").convert(), (1024, 768))
+        screen.blit(bg, [0, 0])
+        pygame.display.update()
+        time.sleep(3)
     else:
-        print("You Win")
-
+        play_music("Audio/win.wav")
+        bg = pygame.transform.scale(pygame.image.load("Images/win.jpg").convert(), (1024, 768))
+        screen.blit(bg, [0, 0])
+        pygame.display.update()
+        time.sleep(3)
+    play_music("Audio/menu.wav")
 
 def eventpress(cards):
     eventpress=True
@@ -191,37 +202,66 @@ def eventpress(cards):
                 pygame.quit()
                 quit()
             if event.type==pygame.KEYDOWN:
-                if event.key==pygame.K_UP:
+                if event.key==pygame.K_UP or event.key==pygame.K_w:
+                    play_sound("Audio/Text.wav")
                     selected -= 1
-                elif event.key==pygame.K_DOWN:
+                elif event.key==pygame.K_DOWN or event.key==pygame.K_s:
+                    play_sound("Audio/Text.wav")
                     selected += 1
-                if event.key==pygame.K_RETURN:
+                if event.key==pygame.K_RETURN or event.key==pygame.K_SPACE:
+                    #play_sound("Audio/Confirm.wav")
                     if selected%6 == 0 and cards[0]:
                         print(edb.events[cards[0]])
                         canuse = edb.event(cards[0])
                         if canuse:
+                            play_sound("Audio/Confirm.wav")
                             cards[0] = False
+                        else:
+                            play_sound("Audio/no.wav")
                     elif selected%6 == 1:
                         canuse = edb.event(cards[1])
                         if canuse:
+                            play_sound("Audio/Confirm.wav")
                             cards[1] = False
+                        else:
+                            play_sound("Audio/no.wav")
                     elif selected%6 == 2:
                         canuse = edb.event(cards[2])
                         if canuse:
+                            play_sound("Audio/Confirm.wav")
                             cards[2] = False
+                        else:
+                            play_sound("Audio/no.wav")
                     elif selected%6 == 3:
                         canuse = edb.event(cards[3])
                         if canuse:
+                            play_sound("Audio/Confirm.wav")
                             cards[3] = False
+                        else:
+                            play_sound("Audio/no.wav")
                     elif selected%6 == 4:
                         canuse = edb.event(cards[4])
                         if canuse:
+                            play_sound("Audio/Confirm.wav")
                             cards[4] = False
+                        else:
+                            play_sound("Audio/no.wav")
                     elif selected%6 == 5:
                         return True
                     if selected=="quit":
                         pygame.quit()
                         quit()
+                if event.key==pygame.K_RIGHT or event.key==pygame.K_d:
+                    return True
+                if event.key==pygame.K_LCTRL or event.key==pygame.K_RCTRL or event.key==pygame.K_LEFT or event.key==pygame.K_a:
+                    if edb.ship["red"][0] > 0 and edb.ship["blue"][0] > 0 and edb.ship["yellow"][0] > 0:
+                        play_sound("Audio/generate.wav")
+                        edb.ship["red"][0] -= 1
+                        edb.ship["blue"][0] -= 1
+                        edb.ship["yellow"][0] -= 1
+                        edb.ship["man"] += 1
+                    else:
+                        play_sound("Audio/no.wav")
         #edb.ship_hud2(screen, edb.ship)
         edb.card(selected, cards, bg)
         edb.ship_hud2(screen, edb.ship)

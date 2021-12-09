@@ -67,24 +67,22 @@ pink1=(255,67,164)
 # ไม่ทำมี Damage
 
 events = {
-    "Recruit" : "%s + %s + %s -> %s" %(red, blue ,yellow, man),
-    "Recovery1" : "-2 %s to +1 HULL" %(man),
-    "Recovery2" : "-2 %s to +1 HULL" %(man),
-    "Recovery3" : "-2 %s to +1 HULL" %(man),
+    "Generate" : "%s + %s + %s -> %s" %(red, blue ,yellow, man),
+    "Repair" : "-1 %s and -1 %s to +1 HULL" %(blue, yellow),
     "EV2" : "-1 %s -> +1 MAX %s" %(man, red),
     "EV3" : "-1 %s -> +1 MAX %s" %(man, blue),
     "EV4" : "-1 %s -> +1 MAX %s" %(man, yellow),
     "Bad1" : "2 %s to avoid -1 HULL" %yellow,
     "Bad2" : "2 %s to avoid -2 %s" %(blue, man),
     "Bad3" : "2 %s to avoid -1 %s and -1 %s" %(red, blue, yellow),
-    "Change1" : "-1 MAX %s to +2 MAX %s" %(yellow, red),
-    "Change2" : "-1 MAX %s to +2 MAX %s" %(red, blue),
-    "Change3" : "-1 MAX %s to +2 MAX %s" %(blue, yellow),
+    "Change1" : "-1 %s to +1 %s" %(yellow, red),
+    "Change2" : "-1 %s to +1 %s" %(red, blue),
+    "Change3" : "-1 %s to +1 %s" %(blue, yellow),
     "Bonus1" : "+2 %s" %(man),
     "Bonus2" : "+1 %s %s %s" %(red, blue, yellow),
-    "ExChange1" : "-1 MAX %s to +1 MAX %s %s" %(yellow, red, blue),
-    "ExChange2" : "-1 MAX %s to +1 MAX %s %s" %(red, yellow, blue),
-    "ExChange3" : "-1 MAX %s to +1 MAX %s %s" %(blue, red, yellow),
+    "ExChange1" : "-1 MAX %s to +1 %s %s" %(yellow, red, blue),
+    "ExChange2" : "-1 MAX %s to +1 %s %s" %(red, yellow, blue),
+    "ExChange3" : "-1 MAX %s to +1 %s %s" %(blue, red, yellow),
     "LastSave1" : "-1 MAX %s to +2 %s" %(red, blue),
     "LastSave2" : "-1 MAX %s to +2 %s" %(red, yellow),
     "LastSave3" : "-1 MAX %s to +2 %s" %(blue, red),
@@ -111,7 +109,7 @@ bad_events = {
     #"Bonus2" : "+1 %s %s %s" %(red, blue, yellow)
     "VeryBad2" : "2 %s to avoid -1 %s" %(yellow, man),
     "VeryBad3" : "2 %s to avoid -1 %s" %(blue, man),
-    "Goduck1" : "-1 All Resource to avoid -2 %s" %man,
+    "Goduck1" : "-1 %s %s %s to avoid -2 %s" %(red, blue, yellow, man),
 }
 def ship_hud(ship): #สร้างหน้าบอก Resource
     """Make Ship HUD"""
@@ -179,13 +177,17 @@ def choose_card(cards): #เลือกการ์ด
 
 def event(evt): #ใช้งานอีเวนต์
     """Trigger Event"""
-    if evt == "Recruit" and (ship["red"][0] > 0 and ship["blue"][0] > 0 and ship["yellow"][0] > 0):
+    #uni = ship["hull"][0] > 0 and ship["red"][0] > 0 and ship["blue"][0] > 0 and ship["yellow"][0] > 0 and ship["man"] > 0
+    #uni2 = ship["red"][1] > 0 and ship["blue"][1] > 0 and ship["yellow"][1] > 0
+    #uni3 = uni and uni2
+    if evt == "Generate" and ship["red"][0] > 0 and ship["blue"][0] > 0 and ship["yellow"][0] > 0:
         ship["red"][0] -= 1
         ship["blue"][0] -= 1
         ship["yellow"][0] -= 1
         ship["man"] += 1
-    elif evt == "Recovery1" and ship["man"] >= 2:
-        ship["man"] -= 2
+    elif evt == "Repair" and ship["blue"][0] >= 1 and ship["yellow"][0] >= 1:
+        ship["blue"] -= 1
+        ship["yellow"] -= 1
         ship["hull"][0] += 1
     elif evt == "EV2" and ship["man"] >= 1:
         ship["man"] -= 1
@@ -197,66 +199,66 @@ def event(evt): #ใช้งานอีเวนต์
         ship["man"] -= 1
         ship["yellow"][1] += 1
     elif evt == "Change1" and ship["yellow"][1] >= 1:
-        ship["yellow"][1] -= 1
-        ship["red"][1] += 2
+        ship["yellow"][0] -= 1
+        ship["red"][0] += 1
     elif evt == "Change2" and ship["red"][1] >= 1:
-        ship["red"][1] -= 1
-        ship["blue"][1] += 2
+        ship["red"][0] -= 1
+        ship["blue"][0] += 1
     elif evt == "Change3" and ship["blue"][1] >= 1:
-        ship["blue"][1] -= 1
-        ship["yellow"][1] += 2
+        ship["blue"][0] -= 1
+        ship["yellow"][0] += 1
     elif evt == "Bonus1":
         ship["man"] += 2
     elif evt == "Bonus2":
         ship["yellow"][1] += 1
         ship["red"][1] += 1
         ship["blue"][1] += 1
-    elif evt == "ExChange1":
+    elif evt == "ExChange1" and ship["yellow"][1] >= 1:
         ship["yellow"][1] -= 1
-        ship["red"][1] += 1
-        ship["blue"][1] += 1
-    elif evt == "ExChange2":
-        ship["yellow"][1] += 1
+        ship["red"][0] += 1
+        ship["blue"][0] += 1
+    elif evt == "ExChange2" and ship["red"][1] >= 1:
+        ship["yellow"][0] += 1
         ship["red"][1] -= 1
-        ship["blue"][1] += 1
-    elif evt == "ExChange3":
-        ship["yellow"][1] += 1
-        ship["red"][1] += 1
+        ship["blue"][0] += 1
+    elif evt == "ExChange3" and ship["blue"][1] >= 1 :
+        ship["yellow"][0] += 1
+        ship["red"][0] += 1
         ship["blue"][1] -= 1 
-    elif evt == "LastSave1":
+    elif evt == "LastSave1" and ship["red"][1] >= 1:
         ship["blue"][0] += 2
         ship["red"][1] -= 1
-    elif evt == "LastSave2":
+    elif evt == "LastSave2" and ship["red"][1] >= 1:
         ship["yellow"][0] += 2
         ship["red"][1] -= 1
-    elif evt == "LastSave3":
+    elif evt == "LastSave3" and ship["blue"][1] >= 1:
         ship["red"][0] += 2
         ship["blue"][1] -= 1
-    elif evt == "LastSave4":
+    elif evt == "LastSave4" and ship["blue"][1] >= 1:
         ship["yellow"][0] += 2
         ship["blue"][1] -= 1
-    elif evt == "LastSave5":
+    elif evt == "LastSave5" and ship["yellow"][1] >= 1:
         ship["blue"][0] += 2
         ship["yellow"][1] -= 1
-    elif evt == "LastSave6":
+    elif evt == "LastSave6" and ship["yellow"][1] >= 1:
         ship["red"][0] += 2
         ship["yellow"][1] -= 1
-    elif evt == "ThebigSave1":
+    elif evt == "ThebigSave1" and ship["man"] >= 1:
         ship["man"] -= 1
         ship["yellow"][0] += 3
-    elif evt == "ThebigSave2":
+    elif evt == "ThebigSave2" and ship["man"] >= 1: 
         ship["man"] -= 1
         ship["blue"][0] += 3
-    elif evt == "ThebigSave3":
+    elif evt == "ThebigSave3" and ship["man"] >= 1:
         ship["man"] -= 1
         ship["red"][0] += 3
-    elif evt == "ThePowerUP1":
+    elif evt == "ThePowerUP1" and ship["red"][1] >= 1:
         ship["man"] += 1
         ship["red"][1] -= 1
-    elif evt == "ThePowerUP2":
+    elif evt == "ThePowerUP2" and ship["blue"][1] >= 1:
         ship["man"] += 1
         ship["blue"][1] -= 1
-    elif evt == "ThePowerUP3":
+    elif evt == "ThePowerUP3" and ship["yellow"][1] >= 1:
         ship["man"] += 1
         ship["yellow"][1] -= 1
     else:
@@ -305,18 +307,11 @@ def ship_hud2(screen, ship): #สร้างหน้าบอก Resource
     #screen.blit(bg, [0, 0])
     screen.blit(ui_1, [0, 0])
     screen.blit(text("Star %d: %s" %(ship['current']+1, starname[ship['current']]), UIfont, 64, textcolor), (64, 32))
-    #screen.blit(text("╔"+"═"*49+"╗", UIfont, 48, blue1), (700, 50))
     screen.blit(text("HULL: "+("O"*ship['hull'][0])+"-"*(ship['hull'][1]-ship['hull'][0]), UIfont, 64, white), (256, 576))
     screen.blit(text("%02d %s " %(ship['man'], man), UIfont, 64, green), (256, 640))
     screen.blit(text("%d/%d %s " %(ship['red'][0], ship['red'][1], red), UIfont, 64, white), (704, 580))
     screen.blit(text("%d/%d %s " %(ship['blue'][0], ship['blue'][1], blue), UIfont, 64, white), (704, 620))
-    screen.blit(text("%d/%d %s " %(ship['yellow'][0], ship['yellow'][1], yellow), UIfont, 64, white), (704, 660))
-    #screen.blit(text("╚"+"═"*49+"╝", UIfont, 48, black), (700, 200))
-    #screen.blit(text(events["Recruit"], UIfont, 10, white), (box*1, box*2))
-    #screen.blit(text(events["Recovery1"], UIfont, 10, white), (box*1, box*3))   
-    #screen.blit(text(events["Bad1"], UIfont, 10, white), (box*1, box*4))   
-    #screen.blit(text(events["Bad2"], UIfont, 10, white), (box*1, box*5))
-    #screen.blit(text(events["Bad2"], UIfont, 10, white), (box*1, box*5))          
+    screen.blit(text("%d/%d %s " %(ship['yellow'][0], ship['yellow'][1], yellow), UIfont, 64, white), (704, 660))      
     pygame.display.update()
    # time.sleep(5)
 def showused(card):
@@ -347,10 +342,11 @@ def card(selected, cards, bg):
     else:
         text_5 = text("%s" %showused(cards[4]), UIfont, 64, white)
     if selected%6 == 5:
-        text_6 = text(">> Next Star >>", UIfont, 64, red1)
+        text_6 = text(">> Next Star >>", UIfont, 64, yellow1)
     else:
-        text_6 = text(">> Next Star", UIfont, 64, pink1)
-    
+        text_6 = text(">> Next Star", UIfont, 64, white)
+    gui = pygame.transform.scale(pygame.image.load("Images/ui.png"), (1024, 768))
+    screen.blit(gui, (0, 0))
     screen.blit(text_1, (64, 120))
     screen.blit(text_2, (64, 180))
     screen.blit(text_3, (64, 240))
