@@ -39,7 +39,7 @@ def mainloop():
     win = True
     while edb.ship['current'] < stars or win == True:
         #edb.bonus_event()
-        cards = edb.sector_cards()
+        cards = edb.sector_cards(edb.all_event, edb.all_prob)
         win = edb.choose_card(cards)
         #os.system('cls')
         edb.ship['current']  += 1
@@ -163,10 +163,10 @@ def statecheck():
         "boss" : 20
     }
     win = True
-    while edb.ship['current'] < 4 and win == True:
+    while edb.ship['current'] < 10 and win == True:
         play_sound("Audio/start-level.wav")
         screen.fill((0,0,0))
-        cards = edb.sector_cards()
+        cards = edb.sector_cards(edb.all_event, edb.all_prob)
         print(cards)
         win = eventpress(cards)
         #check
@@ -259,7 +259,7 @@ def eventpress(cards):
                 if event.key==pygame.K_RETURN or event.key==pygame.K_SPACE:
                     #play_sound("Audio/Confirm.wav")
                     if selected%6 == 0 and cards[0]:
-                        print(edb.events[cards[0]])
+                        #print(edb.events[cards[0]])
                         canuse = edb.event(cards[0])
                         if canuse:
                             play_sound("Audio/Confirm.wav")

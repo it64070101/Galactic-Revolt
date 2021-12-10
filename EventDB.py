@@ -13,7 +13,7 @@ screen=pygame.display.set_mode((screen_width, screen_height))
 
 clock = pygame.time.Clock()
 FPS=30
-used = "used"
+used = "[used]"
 def text(message, textFont, textSize, textColor):
     newFont=pygame.font.Font(textFont, textSize)
     newText=newFont.render(message, 0, textColor)
@@ -67,72 +67,98 @@ pink1=(255,67,164)
 # ไม่ทำมี Damage
 
 events = {
-    "Generate" : "%s + %s + %s -> +2 %s" %(red, blue ,yellow, man),
-    "Repair" : "-1 %s and -1 %s to +1 HULL" %(blue, yellow),
-    "Sacrifice" : "-1 %s -> +1 MAX %s %s %s" %(man, red, blue, yellow),
+    "Degenerate" : "-1 %s -> +1 MAX %s %s %s" %(man, red, blue, yellow),
     "Eat Ship" : "-1 HULL to +1 %s %s %s" %(red, blue, yellow),
-   # "EV3" : "-1 %s -> +1 MAX %s" %(man, blue),
-   # "EV4" : "-1 %s -> +1 MAX %s" %(man, yellow),
-   # "Bad1" : "2 %s to avoid -1 HULL" %yellow,
-   # "Bad2" : "2 %s to avoid -2 %s" %(blue, man),
-   # "Bad3" : "2 %s to avoid -1 %s and -1 %s" %(red, blue, yellow),
-    "Change1" : "-1 %s to +1 %s" %(yellow, red),
-    "Change2" : "-1 %s to +1 %s" %(red, blue),
-    "Change3" : "-1 %s to +1 %s" %(blue, yellow),
-    "Bonus1" : "+2 %s" %(man),
-    "Bonus2" : "+1 MAX %s %s %s" %(red, blue, yellow),
-    "Bonus3" : "+2 MAX %s" %(red),
-    "Bonus4" : "+2 MAX %s" %(blue),
-    "Bonus5" : "+2 MAX %s" %(yellow),
-    "ExChange1" : "-1 MAX %s to +1 %s %s" %(yellow, red, blue),
-    "ExChange2" : "-1 MAX %s to +1 %s %s" %(red, yellow, blue),
-    "ExChange3" : "-1 MAX %s to +1 %s %s" %(blue, red, yellow),
-    #"Last Save1" : "-1 MAX %s to +2 %s" %(red, blue),
-   # "Last Save2" : "-1 MAX %s to +2 %s" %(red, yellow),
-   # "Last Save3" : "-1 MAX %s to +2 %s" %(blue, red),
-   # "Last Save4" : "-1 MAX %s to +2 %s" %(blue, yellow),
-   # "Last Save5" : "-1 MAX %s to +2 %s" %(yellow, blue),
-   # "Last Save6" : "-1 MAX %s to +2 %s" %(yellow, red),
-    "Big Save1" : "-1 %s to +3 %s" %(man, yellow),
-    "Big Save2" : "-1 %s to +3 %s" %(man, blue),
-    "Big Save3" : "-1 %s to +3 %s" %(man, red),
-    "Power UP1" : "-1 MAX %s to +1 %s" %(red, man),
-    "Power UP2" : "-1 MAX %s to +1 %s" %(blue, man),
-    "Power UP3" : "-1 MAX %s to +1 %s" %(yellow, man),
-    "UP1" : "-2 %s to +1 MAX %s" %(red, red),
-    "UP2" : "-2 %s to +1 MAX %s" %(blue, blue),
-    "UP3" : "-2 %s to +1 MAX %s" %(yellow, yellow),
-    "Plus1" : "-2 %s to +1 %s" %(yellow, man),
-    "Plus2" : "-2 %s to +1 %s" %(red, man),
-    "Plus3" : "-2 %s to +1 %s" %(blue, man),
-    "Plus4" : "-3 %s to +2 %s" %(yellow, man),
-    "Plus5" : "-3 %s to +2 %s" %(red, man),
-    "Plus6" : "-3 %s to +2 %s" %(blue, man),
-    "Benefit1" : "-1 %s to +1 MAX %s" %(blue, blue),
-    "Benefit2" : "-1 %s to +1 MAX %s" %(red, red),
-    "Benefit3" : "-1 %s to +1 MAX %s" %(yellow, yellow),
-    "Benefit4" : "-2 %s to +2 MAX %s" %(blue, blue),
-    "Benefit5" : "-2 %s to +2 MAX %s" %(red, red),
-    "Benefit6" : "-2 %s to +2 MAX %s" %(yellow, yellow),
-    "Lucky Change1" : "-1 %s to +2 MAX %s" %(red, red),
-    "Lucky Change2" : "-1 %s to +2 MAX %s" %(blue, blue),
-    "Lucky Change3" : "-1 %s to +2 MAX %s" %(yellow, yellow),
-
+    "Engineer Exchange" : "-1 MAX %s to +1 %s %s" %(yellow, red, blue),
+    "Trooper ExChange" : "-1 MAX %s to +1 %s %s" %(red, yellow, blue),
+    "Supporter ExChange" : "-1 MAX %s to +1 %s %s" %(blue, red, yellow),
+    "Engineer Saving" : "-1 %s to +3 %s" %(man, yellow),
+    "Supporter Saving" : "-1 %s to +3 %s" %(man, blue),
+    "Trooper Saving" : "-1 %s to +3 %s" %(man, red),
+    "Trooper Sacrifice" : "-1 MAX %s to +1 %s" %(red, man),
+    "Supporter Sacrifice" : "-1 MAX %s to +1 %s" %(blue, man),
+    "Engineer Sacrifice" : "-1 MAX %s to +1 %s" %(yellow, man), # บ่อย 50%
+    "Repair" : "-1 %s and -1 %s to +1 HULL" %(blue, yellow),
+    "Trooper power up" : "-2 %s to +1 MAX %s" %(red, red),
+    "Supporter power up" : "-2 %s to +1 MAX %s" %(blue, blue),
+    "Engineer power up" : "-2 %s to +1 MAX %s" %(yellow, yellow),
+    "Engineer at work" : "-2 %s to +1 %s" %(yellow, man),
+    "Trooper at work" : "-2 %s to +1 %s" %(red, man),
+    "Supporter at work" : "-2 %s to +1 %s" %(blue, man),
+    "Engineer Overtime" : "-3 %s to +2 %s" %(yellow, man),
+    "Trooper Overtime" : "-3 %s to +2 %s" %(red, man),
+    "Supporter Overtime" : "-3 %s to +2 %s" %(blue, man), # กลางๆ 30%
+    "Trooper Volunteer" : "-1 %s to +2 MAX %s" %(red, red),
+    "Supporter Volunteer" : "-1 %s to +2 MAX %s" %(blue, blue),
+    "Engineer Volunteer" : "-1 %s to +2 MAX %s" %(yellow, yellow), # น้อย 10%
 }
+event_prob1 = [0.5 for _ in range(11)]
+event_prob2 = [0.3 for _ in range(10)]
+event_prob3 = [0.1 for _ in range(3)]
 bonus_events = {
-    
+    "Effective Generator" : "+2 %s" %(man),
+    "Motivated Officers" : "+1 MAX %s %s %s" %(red, blue, yellow),
+    "Motivated Trooper" : "+2 MAX %s" %(red),
+    "Motivated Supporter" : "+2 MAX %s" %(blue),
+    "Motivated Engineer" : "+2 MAX %s" %(yellow)
 }
+bonus_prob = [0.1 for _ in range(5)]
 bad_events = {
-    "Bad1" : "2 %s to avoid -2 HULL" %yellow,
-    "Bad2" : "2 %s to avoid -2 %s" %(blue, man),
-    "Bad3" : "2 %s to avoid -1 %s and -1 %s" %(red, blue, yellow),
-    #"Bonus1" : "+2 %s" %(man),
+    "Broken Hull" : "2 %s to avoid -2 HULL" %yellow,
+    "Damaged Hull" : "2 %s to avoid -2 HULL" %red,
+    "Leaked Hull" : "2 %s to avoid -2 HULL" %blue,
+    "Generator Supporting" : "2 %s to avoid -2 %s" %(blue, man),
+    "Strike" : "2 %s to avoid -1 %s and -1 %s" %(red, blue, yellow),
     "Defend" : "2 %s to avoid -1 %s" %(red, man),
-    #"Bonus2" : "+1 %s %s %s" %(red, blue, yellow)
-    "Need Repair" : "2 %s to avoid -1 %s" %(yellow, man),
-    "Get Hurt" : "2 %s to avoid -1 %s" %(blue, man),
-    "Goduck" : "-1 %s %s %s to avoid -2 %s" %(red, blue, yellow, man),
+    "Generator Reparing" : "2 %s to avoid -1 %s" %(yellow, man),
+    "Get Damaged" : "2 %s to avoid -1 %s" %(blue, man),
+    "Generator Treatment" : "-1 %s %s %s to avoid -2 %s" %(red, blue, yellow, man)
 }
+bad_prob = [0.02+(0.02*ship["current"]) for _ in range(9)]
+all_event = [eve for eve in events] + [eve for eve in bonus_events] + [eve for eve in bad_events]
+all_prob = event_prob1 + event_prob2 + event_prob3 + bonus_prob + bad_prob
+
+evdb = {
+    "Degenerate" : "-1 %s -> +1 MAX %s %s %s" %(man, red, blue, yellow),
+    "Eat Ship" : "-1 HULL to +1 %s %s %s" %(red, blue, yellow),
+    "Engineer Exchange" : "-1 MAX %s to +1 %s %s" %(yellow, red, blue),
+    "Trooper ExChange" : "-1 MAX %s to +1 %s %s" %(red, yellow, blue),
+    "Supporter ExChange" : "-1 MAX %s to +1 %s %s" %(blue, red, yellow),
+    "Engineer Saving" : "-1 %s to +3 %s" %(man, yellow),
+    "Supporter Saving" : "-1 %s to +3 %s" %(man, blue),
+    "Trooper Saving" : "-1 %s to +3 %s" %(man, red),
+    "Trooper Sacrifice" : "-1 MAX %s to +1 %s" %(red, man),
+    "Supporter Sacrifice" : "-1 MAX %s to +1 %s" %(blue, man),
+    "Engineer Sacrifice" : "-1 MAX %s to +1 %s" %(yellow, man), # บ่อย 50%
+    "Repair" : "-1 %s and -1 %s to +1 HULL" %(blue, yellow),
+    "Trooper power up" : "-2 %s to +1 MAX %s" %(red, red),
+    "Supporter power up" : "-2 %s to +1 MAX %s" %(blue, blue),
+    "Engineer power up" : "-2 %s to +1 MAX %s" %(yellow, yellow),
+    "Engineer at work" : "-2 %s to +1 %s" %(yellow, man),
+    "Trooper at work" : "-2 %s to +1 %s" %(red, man),
+    "Supporter at work" : "-2 %s to +1 %s" %(blue, man),
+    "Engineer Overtime" : "-3 %s to +2 %s" %(yellow, man),
+    "Trooper Overtime" : "-3 %s to +2 %s" %(red, man),
+    "Supporter Overtime" : "-3 %s to +2 %s" %(blue, man), # กลางๆ 30%
+    "Trooper Volunteer" : "-1 %s to +2 MAX %s" %(red, red),
+    "Supporter Volunteer" : "-1 %s to +2 MAX %s" %(blue, blue),
+    "Engineer Volunteer" : "-1 %s to +2 MAX %s" %(yellow, yellow),
+    "Effective Generator" : "+2 %s" %(man),
+    "Motivated Officers" : "+1 MAX %s %s %s" %(red, blue, yellow),
+    "Motivated Trooper" : "+2 MAX %s" %(red),
+    "Motivated Supporter" : "+2 MAX %s" %(blue),
+    "Motivated Engineer" : "+2 MAX %s" %(yellow),
+    "Broken Hull" : "2 %s to avoid -2 HULL" %yellow,
+    "Damaged Hull" : "2 %s to avoid -2 HULL" %red,
+    "Leaked Hull" : "2 %s to avoid -2 HULL" %blue,
+    "Generator Supporting" : "2 %s to avoid -2 %s" %(blue, man),
+    "Strike" : "2 %s to avoid -1 %s and -1 %s" %(red, blue, yellow),
+    "Defend" : "2 %s to avoid -1 %s" %(red, man),
+    "Generator Reparing" : "2 %s to avoid -1 %s" %(yellow, man),
+    "Get Damaged" : "2 %s to avoid -1 %s" %(blue, man),
+    "Generator Treatment" : "-1 %s %s %s to avoid -2 %s" %(red, blue, yellow, man)
+}
+
 def ship_hud(ship): #สร้างหน้าบอก Resource
     """Make Ship HUD"""
     #len_1 = len(" HULL: "+("▮"*ship['hull'][0])+"▯"*(ship['hull'][1]-ship['hull'][0]))
@@ -149,27 +175,21 @@ def ship_hud(ship): #สร้างหน้าบอก Resource
     print(" %d/%d %s ║" %(ship['yellow'][0], ship['yellow'][1], yellow))
     print("╚"+"═"*75+"╝")
 
-def sector_cards(): #สุ่มว่าจะมีการ์ดออกมากี่ใบ
+def sector_cards(all_event, all_prob): #สุ่มว่าจะมีการ์ดออกมากี่ใบ
     """Draw Sector Cards"""
     ship['red'][0] = ship['red'][1]
     ship['blue'][0] = ship['blue'][1]
     ship['yellow'][0] = ship['yellow'][1]
-    all_event = [eve for eve in events]
-    num = random.random()*100
-    if num >= 0 and num < 25:
-        num = 3
-    elif num >= 25 and num < 75:
-        num = 4
-    else:
-        num = 5
+    # print(all_event)
     num = 5
-    cards = random_event(all_event, num)
+    cards = []
+    for _ in range(num):
+        cards.append("".join((random.choices(all_event, all_prob))))
     return cards
 
 def random_event(all_event, num): #สุ่มว่าจะเจออีเวนต์อะไรบ้าง
     """Random Event"""
     cards = []
-    random.shuffle(all_event)
     for _ in range(num):
         cards.append(all_event.pop())
     return cards
@@ -199,148 +219,109 @@ def choose_card(cards): #เลือกการ์ด
 
 def event(evt): #ใช้งานอีเวนต์
     """Trigger Event"""
-    #uni = ship["hull"][0] > 0 and ship["red"][0] > 0 and ship["blue"][0] > 0 and ship["yellow"][0] > 0 and ship["man"] > 0
-    #uni2 = ship["red"][1] > 0 and ship["blue"][1] > 0 and ship["yellow"][1] > 0
-    #uni3 = uni and uni2
-    if evt == "Generate" and ship["red"][0] > 0 and ship["blue"][0] > 0 and ship["yellow"][0] > 0:
-        ship["red"][0] -= 1
-        ship["blue"][0] -= 1
-        ship["yellow"][0] -= 1
-        ship["man"] += 2
-    elif evt == "Repair" and ship["blue"][0] >= 1 and ship["yellow"][0] >= 1:
+    if evt == "Repair" and ship["blue"][0] >= 1 and ship["yellow"][0] >= 1:
         ship["blue"] -= 1
         ship["yellow"] -= 1
         ship["hull"][0] += 1
-    elif evt == "Sacrifice" and ship["man"] >= 1:
-        ship["man"] -= 1
-        ship["red"][1] += 1
-        ship["blue"][1] += 1
-        ship["yellow"][1] += 1
     elif evt == "Eat Ship" and ship["hull"][0] >= 2:
         ship["hull"][0] -= 1
         ship["blue"][1] += 1
         ship["red"][1] += 1
         ship["yellow"][1] += 1
-    elif evt == "Change1" and ship["yellow"][1] >= 1:
+    elif evt == "Engineer Exchange" and ship["yellow"][1] >= 1:
         ship["yellow"][0] -= 1
         ship["red"][0] += 1
-    elif evt == "Change2" and ship["red"][1] >= 1:
+    elif evt == "Trooper ExChange" and ship["red"][1] >= 1:
         ship["red"][0] -= 1
         ship["blue"][0] += 1
-    elif evt == "Change3" and ship["blue"][1] >= 1:
+    elif evt == "Supporter ExChange" and ship["blue"][1] >= 1:
         ship["blue"][0] -= 1
         ship["yellow"][0] += 1
-    elif evt == "Bonus1":
+    elif evt == "Effective Generator":
         ship["man"] += 2
-    elif evt == "Bonus2":
+    elif evt == "Motivated Officers":
         ship["yellow"][1] += 1
         ship["red"][1] += 1
         ship["blue"][1] += 1
-    elif evt == "Bonus3":
+    elif evt == "Motivated Trooper":
         ship["red"][1] += 2
-    elif evt == "Bonus4":
+    elif evt == "Motivated Supporter":
         ship["blue"][1] += 2
-    elif evt == "Bonus5":
+    elif evt == "Motivated Engineer":
         ship["yellow"][1] += 2
-    elif evt == "ExChange1" and ship["yellow"][1] >= 1:
-        ship["yellow"][1] -= 1
-        ship["red"][0] += 1
-        ship["blue"][0] += 1
-    elif evt == "ExChange2" and ship["red"][1] >= 1:
-        ship["yellow"][0] += 1
-        ship["red"][1] -= 1
-        ship["blue"][0] += 1
-    elif evt == "ExChange3" and ship["blue"][1] >= 1 :
-        ship["yellow"][0] += 1
-        ship["red"][0] += 1
-        ship["blue"][1] -= 1 
-  #  elif evt == "Last Save1" and ship["red"][1] >= 1:
-  #      ship["blue"][0] += 2
-  #      ship["red"][1] -= 1
-  #  elif evt == "Last Save2" and ship["red"][1] >= 1:
-  #      ship["yellow"][0] += 2
-  #      ship["red"][1] -= 1
-  #  elif evt == "Last Save3" and ship["blue"][1] >= 1:
-  #      ship["red"][0] += 2
-  #      ship["blue"][1] -= 1
-  #  elif evt == "Last Save4" and ship["blue"][1] >= 1:
-  #      ship["yellow"][0] += 2
-  #      ship["blue"][1] -= 1
-  #  elif evt == "Last Save5" and ship["yellow"][1] >= 1:
-  #      ship["blue"][0] += 2
-  #      ship["yellow"][1] -= 1
-  #  elif evt == "Last Save6" and ship["yellow"][1] >= 1:
-  #      ship["red"][0] += 2
-  #      ship["yellow"][1] -= 1
-    elif evt == "Big Save1" and ship["man"] >= 1:
+    elif evt == "Engineer Saving" and ship["man"] >= 1:
         ship["man"] -= 1
         ship["yellow"][0] += 3
-    elif evt == "Big Save2" and ship["man"] >= 1: 
+    elif evt == "Supporter Saving" and ship["man"] >= 1: 
         ship["man"] -= 1
         ship["blue"][0] += 3
-    elif evt == "Big Save3" and ship["man"] >= 1:
+    elif evt == "Trooper Saving" and ship["man"] >= 1:
         ship["man"] -= 1
         ship["red"][0] += 3
-    elif evt == "Power UP1" and ship["red"][1] >= 1:
+    elif evt == "Trooper Sacrifice" and ship["red"][1] >= 1:
         ship["man"] += 1
         ship["red"][1] -= 1
-    elif evt == "Power UP2" and ship["blue"][1] >= 1:
+    elif evt == "Supporter Sacrifice" and ship["blue"][1] >= 1:
         ship["man"] += 1
         ship["blue"][1] -= 1
-    elif evt == "Power UP3" and ship["yellow"][1] >= 1:
+    elif evt == "Engineer Sacrifice" and ship["yellow"][1] >= 1:
         ship["man"] += 1
         ship["yellow"][1] -= 1
-    elif evt == "UP1" and ship["red"][0] >= 2:
+    elif evt == "Trooper power up" and ship["red"][0] >= 2:
         ship["red"][1] += 1
         ship["red"][0] -= 2
-    elif evt == "UP2" and ship["blue"][0] >= 2:
+    elif evt == "Supporter power up" and ship["blue"][0] >= 2:
         ship["blue"][1] += 1
         ship["blue"][0] -= 2
-    elif evt == "UP3" and ship["yellow"][0] >= 2:
+    elif evt == "Engineer power up" and ship["yellow"][0] >= 2:
         ship["yellow"][1] += 1
         ship["yellow"][0] -= 2
-    elif evt == "Plus1" and ship["yellow"][0] >= 2:
+    elif evt == "Engineer at work" and ship["yellow"][0] >= 2:
         ship["man"] += 1
         ship["yellow"][0] -= 2
-    elif evt == "Plus2" and ship["red"][0] >= 2:
+    elif evt == "Trooper at work" and ship["red"][0] >= 2:
         ship["man"] += 1
         ship["red"][0] -= 2
-    elif evt == "Plus3" and ship["blue"][0] >= 2:
+    elif evt == "Supporter at work" and ship["blue"][0] >= 2:
         ship["man"] += 1
         ship["blue"][0] -= 2
-    elif evt == "Plus4" and ship["yellow"][0] >= 3:
+    elif evt == "Engineer Overtime" and ship["yellow"][0] >= 3:
         ship["man"] += 2
         ship["yellow"][0] -= 3
-    elif evt == "Plus5" and ship["red"][0] >= 3:
+    elif evt == "Trooper Overtime" and ship["red"][0] >= 3:
         ship["man"] += 2
         ship["red"][0] -= 3
-    elif evt == "Plus6" and ship["blue"][0] >= 3:
+    elif evt == "Supporter Overtime" and ship["blue"][0] >= 3:
         ship["man"] += 2
         ship["blue"][0] -= 3
-    elif evt == "Benefit1" and ship["blue"][0] >= 1:
-        ship["blue"][0] -= 1
-        ship["blue"][1] += 1
-    elif evt == "Benefit2" and ship["red"][0] >= 1:
+    elif evt == "Trooper Volunteer" and ship["red"][0] >= 1:
+        ship["red"][1] += 2
+    elif evt == "Supporter Volunteer" and ship["blue"][0] >= 1:
+        ship["blue"][1] += 2
+    elif evt == "Engineer Volunteer" and ship["yellow"][0] >= 1:
+        ship["yellow"][1] += 2
+    elif evt == "Strike" and (ship["blue"][1] >= 1 and ship["yellow"][1] >= 1):
+        ship["blue"][1] -= 1
+        ship["yellow"][1] -= 1
+    elif evt == "Generator Treatment" and ship["red"][0] >= 1 and ship["blue"][0] >= 1 and ship["yellow"][0] >= 1:
         ship["red"][0] -= 1
-        ship["red"][1] += 1
-    elif evt == "Benefit3" and ship["yellow"][0] >= 1:
+        ship["blue"][0] -= 1
         ship["yellow"][0] -= 1
-        ship["yellow"][1] += 1
-    elif evt == "Benefit4" and ship["blue"][0] >= 2:
-        ship["blue"][0] -= 2
-        ship["blue"][1] += 2
-    elif evt == "Benefit5" and ship["red"][0] >= 2:
+    elif evt == "Defend" and ship["red"][0] >= 2:
         ship["red"][0] -= 2
-        ship["red"][1] += 2
-    elif evt == "Benefit6" and ship["yellow"][0] >= 2:
+    elif evt == "Generator Reparing" and ship["yellow"][0] >= 2:
         ship["yellow"][0] -= 2
-        ship["yellow"][1] += 2
-    elif evt == "Lucky Change1" and ship["red"][0] >= 1:
-        ship["red"][1] += 2
-    elif evt == "Lucky Change2" and ship["blue"][0] >= 1:
-        ship["blue"][1] += 2
-    elif evt == "Lucky Change3" and ship["yellow"][0] >= 1:
-        ship["yellow"][1] += 2
+    elif evt == "Get Damaged" and ship["blue"][0] >= 2:
+        ship["blue"][0] -= 2
+    elif evt == "Broken Hull" and ship["yellow"][0] >= 2:
+        ship["yellow"][0] -= 2
+    elif evt == "Damaged Hull" and ship["red"][0] >= 2:
+        ship["red"][0] -= 2
+    elif evt == "Leaked Hull" and ship["blue"][0] >= 2:
+        ship["blue"][0] -= 2
+    elif evt == "Generator Supporting" and ship["blue"][0] >= 2:
+        ship["blue"][0] -= 2
+    
     else:
         print("no")
         return False
@@ -348,29 +329,25 @@ def event(evt): #ใช้งานอีเวนต์
 
 def bad_event(evt):
     """Trigger Bad Event"""
-    if evt == "Bad1" and ship["hull"][0] >= 1:
-        ship["hull"][0] -= 1
-    elif evt == "Bad2" and ship["man"] >= 2:
+    if evt == "Broken Hull":
+        ship["hull"][0] -= 2
+    elif evt == "Damaged Hull":
+        ship["hull"][0] -= 2
+    elif evt == "Damaged Hull":
+        ship["hull"][0] -= 2
+    elif evt == "Generator Supporting":
         ship["man"] -= 2
-    elif evt == "Bad3" and (ship["blue"][1] >= 1 and ship["yellow"][1] >= 1):
+    elif evt == "Strike":
         ship["blue"][1] -= 1
         ship["yellow"][1] -= 1
-    elif evt == "Defend" and ship["red"][0] >= 2:
-        ship["red"][0] -= 2
-    elif evt == "Need Repair" and ship["yellow"][0] >= 2:
-        ship["yellow"][0] -= 2
-    elif evt == "Get Hurt" and ship["blue"][0] >= 2:
-        ship["blue"][0] -= 2
-    elif evt == "Goduck" and ship["red"][0] >= 1 and ship["blue"][0] >= 1 and ship["yellow"][0] >= 1:
-        ship["red"][0] -= 1
-        ship["blue"][0] -= 1
-        ship["yellow"][0] -= 1
-
-def bonus_event():
-    """Random Bonus Event"""
-    bonus = random.random()*100
-    if bonus <= 40:
-        print("Trigger")
+    elif evt == "Defend":
+        ship["man"] -= 1
+    elif evt == "Generator Reparing":
+        ship["man"] -= 1
+    elif evt == "Get Damaged":
+        ship["man"] -= 1
+    elif evt == "Generator Treatment":
+        ship["man"] -= 2
 
 def test(screen):
     bg = pygame.transform.scale(pygame.image.load("Images/test.png").convert(), (1024, 768))
@@ -384,9 +361,6 @@ def test(screen):
 ui_1 = pygame.transform.scale(pygame.image.load("Images/hud.png").convert_alpha(), (1024, 768))
 def ship_hud2(screen, ship): #สร้างหน้าบอก Resource
     """Make Ship pygame"""
-  #  bg = pygame.transform.scale(pygame.image.load("Space_Background_4.png").convert_alpha(), (1024, 768))
-   # ui_1 = pygame.transform.scale(pygame.image.load("hud.png").convert_alpha(), (1024, 768))
-    #screen.blit(bg, [0, 0])
     screen.blit(ui_1, [0, 0])
     screen.blit(text("Star %d: %s" %(ship['current']+1, starname[ship['current']]), UIfont, 64, textcolor), (64, 32))
     screen.blit(text("HULL: "+("O"*ship['hull'][0])+"-"*(ship['hull'][1]-ship['hull'][0]), UIfont, 64, white), (256, 576))
@@ -398,29 +372,32 @@ def ship_hud2(screen, ship): #สร้างหน้าบอก Resource
    # time.sleep(5)
 def showused(card):
     """changeName"""
-    return "used" if card == False else card
+    return "[used]" if card == False else card
+
+def show_events(card, used):
+    return 
 #bg_big = pygame.image.load("Images/Stars/%d.png" %).convert()
 def card(selected, cards, bg):
     """card ui"""
     screen.blit(pygame.image.load("Images/Stars/%d.png" %bg).convert(), [0, 0])
     if selected%6 == 0:
-        text_1 = text("%s <<" %events.get(cards[0], used), UIfont, 64, selectcolor)
+        text_1 = text("%s <<" %evdb.get(cards[0], used), UIfont, 64, selectcolor)
     else:
         text_1 = text("%s" %showused(cards[0]), UIfont, 64, white)
     if selected%6 == 1:
-        text_2=text("%s <<" %events.get(cards[1], used), UIfont, 64, selectcolor)
+        text_2=text("%s <<" %evdb.get(cards[1], used), UIfont, 64, selectcolor)
     else:
         text_2 = text("%s" %showused(cards[1]), UIfont, 64, white)
     if selected%6 == 2:
-        text_3 = text("%s <<" %events.get(cards[2], used), UIfont, 64, selectcolor)
+        text_3 = text("%s <<" %evdb.get(cards[2], used), UIfont, 64, selectcolor)
     else:
         text_3 = text("%s" %showused(cards[2]), UIfont, 64, white)
     if selected%6 == 3:
-        text_4 = text("%s <<" %events.get(cards[3], used), UIfont, 64, selectcolor)
+        text_4 = text("%s <<" %evdb.get(cards[3], used), UIfont, 64, selectcolor)
     else:
         text_4 = text("%s" %showused(cards[3]), UIfont, 64, white)
     if selected%6 == 4:
-        text_5 = text("%s <<" %events.get(cards[4], used), UIfont, 64, selectcolor)
+        text_5 = text("%s <<" %evdb.get(cards[4], used), UIfont, 64, selectcolor)
     else:
         text_5 = text("%s" %showused(cards[4]), UIfont, 64, white)
     if selected%6 == 5:
