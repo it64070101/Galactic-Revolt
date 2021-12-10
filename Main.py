@@ -136,7 +136,7 @@ def menu():
                         print("Start")
                         statecheck()
                     if selected%3 == 1: #Quit
-                        play_sound("Audio/Cancel.wav")
+                        play_sound("Audio/Confirm.wav")
                         time.sleep(1)
                         pygame.quit()
                         quit()
@@ -220,6 +220,7 @@ def howtoplay():
                 pygame.quit()
                 quit()
             if event.type==pygame.KEYDOWN:
+                play_sound("Audio/Text.wav")
                 if event.key==pygame.K_ESCAPE:
                     runing = False
                 if event.key==pygame.K_RIGHT or event.key==pygame.K_d:

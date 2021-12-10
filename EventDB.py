@@ -369,11 +369,11 @@ def ship_hud2(screen, ship): #สร้างหน้าบอก Resource
     """Make Ship pygame"""
     screen.blit(ui_1, [0, 0])
     screen.blit(text("Star %d: %s" %(ship['current']+1, starname[ship['current']]), UIfont, 64, textcolor), (64, 32))
-    screen.blit(text("HULL: ["+("O"*ship['hull'][0])+"_"*(ship['hull'][1]-ship['hull'][0])+"]", UIfont, 72, green), (256, 576-64))
-    screen.blit(text("%02d %s " %(ship['man'], man), UIfont, 100, blue1), (256, 640))
-    screen.blit(text("%d/%d %s " %(ship['red'][0], ship['red'][1], red), UIfont, 64, white), (704 +64, 580))
-    screen.blit(text("%d/%d %s " %(ship['blue'][0], ship['blue'][1], blue), UIfont, 64, white), (704 +64, 620))
-    screen.blit(text("%d/%d %s " %(ship['yellow'][0], ship['yellow'][1], yellow), UIfont, 64, white), (704 +64, 660))      
+    screen.blit(text("HULL: ["+("O"*ship['hull'][0])+"_"*(ship['hull'][1]-ship['hull'][0])+"]", UIfont, 100, green), (256, 576-48))
+    screen.blit(text("%02d %s" %(ship['man'], man), UIfont, 128, blue1), (704-192, 640-48))
+    screen.blit(text("%d/%d %s " %(ship['red'][0], ship['red'][1], red), UIfont, 64, white), (256, 580+16))
+    screen.blit(text("%d/%d %s " %(ship['blue'][0], ship['blue'][1], blue), UIfont, 64, white), (256, 620+16))
+    screen.blit(text("%d/%d %s " %(ship['yellow'][0], ship['yellow'][1], yellow), UIfont, 64, white), (256, 660+16))      
     pygame.display.update()
    # time.sleep(5)
 def showused(card):
