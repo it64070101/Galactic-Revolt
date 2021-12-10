@@ -43,7 +43,7 @@ black=(0, 0, 0)
 gray=(50, 50, 50)
 red1=(255, 0, 0)
 green=(0, 255, 0)
-blue1=(0, 0, 255)
+blue1=(98, 197, 218)
 yellow1=(255, 255, 0)
 darkmagenta=(139,0,139)
 purple=(98,24,245)
@@ -51,6 +51,7 @@ textcolor=(62, 170, 174)
 outlinecolor=(140,104,121)
 selectcolor=(255, 170, 94)
 pink1=(255,67,164)
+orange=(252, 106, 3)
 
 # เพิ่มเฉพาะสี
 # เพิ่มคน
@@ -114,7 +115,7 @@ bad_events = {
     "Get Damaged" : "2 %s to avoid -1 %s" %(blue, man),
     "Generator Treatment" : "-1 %s %s %s to avoid -2 %s" %(red, blue, yellow, man)
 }
-bad_prob = [0.02+(0.02*ship["current"]) for _ in range(9)]
+bad_prob = [0.2 for _ in range(9)]
 all_event = [eve for eve in events] + [eve for eve in bonus_events] + [eve for eve in bad_events]
 all_prob = event_prob1 + event_prob2 + event_prob3 + bonus_prob + bad_prob
 
@@ -219,10 +220,15 @@ def choose_card(cards): #เลือกการ์ด
 
 def event(evt): #ใช้งานอีเวนต์
     """Trigger Event"""
-    if evt == "Repair" and ship["blue"][0] >= 1 and ship["yellow"][0] >= 1:
-        ship["blue"] -= 1
-        ship["yellow"] -= 1
+    if evt == "Repair" and ship["blue"][0] >= 1 and ship["yellow"][0] >= 1 and ship["hull"][0] < 10:
+        ship["blue"][0] -= 1
+        ship["yellow"][0] -= 1
         ship["hull"][0] += 1
+    elif evt == "Degenerate" and ship["man"] >= 1:
+        ship["man"] -= 1
+        ship["blue"][1] += 1
+        ship["red"][1] += 1
+        ship["yellow"][1] += 1
     elif evt == "Eat Ship" and ship["hull"][0] >= 2:
         ship["hull"][0] -= 1
         ship["blue"][1] += 1
@@ -333,7 +339,7 @@ def bad_event(evt):
         ship["hull"][0] -= 2
     elif evt == "Damaged Hull":
         ship["hull"][0] -= 2
-    elif evt == "Damaged Hull":
+    elif evt == "Leaked Hull":
         ship["hull"][0] -= 2
     elif evt == "Generator Supporting":
         ship["man"] -= 2
@@ -363,19 +369,17 @@ def ship_hud2(screen, ship): #สร้างหน้าบอก Resource
     """Make Ship pygame"""
     screen.blit(ui_1, [0, 0])
     screen.blit(text("Star %d: %s" %(ship['current']+1, starname[ship['current']]), UIfont, 64, textcolor), (64, 32))
-    screen.blit(text("HULL: "+("O"*ship['hull'][0])+"-"*(ship['hull'][1]-ship['hull'][0]), UIfont, 64, white), (256, 576))
-    screen.blit(text("%02d %s " %(ship['man'], man), UIfont, 64, green), (256, 640))
-    screen.blit(text("%d/%d %s " %(ship['red'][0], ship['red'][1], red), UIfont, 64, white), (704, 580))
-    screen.blit(text("%d/%d %s " %(ship['blue'][0], ship['blue'][1], blue), UIfont, 64, white), (704, 620))
-    screen.blit(text("%d/%d %s " %(ship['yellow'][0], ship['yellow'][1], yellow), UIfont, 64, white), (704, 660))      
+    screen.blit(text("HULL: ["+("O"*ship['hull'][0])+"_"*(ship['hull'][1]-ship['hull'][0])+"]", UIfont, 72, green), (256, 576-64))
+    screen.blit(text("%02d %s " %(ship['man'], man), UIfont, 100, blue1), (256, 640))
+    screen.blit(text("%d/%d %s " %(ship['red'][0], ship['red'][1], red), UIfont, 64, white), (704 +64, 580))
+    screen.blit(text("%d/%d %s " %(ship['blue'][0], ship['blue'][1], blue), UIfont, 64, white), (704 +64, 620))
+    screen.blit(text("%d/%d %s " %(ship['yellow'][0], ship['yellow'][1], yellow), UIfont, 64, white), (704 +64, 660))      
     pygame.display.update()
    # time.sleep(5)
 def showused(card):
     """changeName"""
     return "[used]" if card == False else card
 
-def show_events(card, used):
-    return 
 #bg_big = pygame.image.load("Images/Stars/%d.png" %).convert()
 def card(selected, cards, bg):
     """card ui"""

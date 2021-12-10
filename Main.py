@@ -175,7 +175,10 @@ def statecheck():
                 edb.bad_event(values)
                 # print('------------------------Trigger', values)
         edb.ship["current"]+= 1
-        #edb.ship["man"]-= 1
+        random_hit = random.random()
+        if random_hit <= 0.25:
+            edb.ship["hull"][0] -= 1
+        edb.ship["man"]-= 1
     if not win or edb.ship["man"] <= edb.ship["boss"]:
         play_music("Audio/lose.wav")
         bg = pygame.transform.scale(pygame.image.load("Images/lose.jpg").convert(), (1024, 768))
@@ -209,13 +212,32 @@ def statecheck():
 def howtoplay():
     """how to play"""
     # play_music("Audio/menu.wav")
-    bg = pygame.transform.scale(pygame.image.load("Images/cosette.jpg").convert(), (1024, 768))
+    howto=0
     runing = True
     while runing:
-        screen.blit(bg,(0,0))
         for event in pygame.event.get():
+            if event.type==pygame.QUIT:
+                pygame.quit()
+                quit()
             if event.type==pygame.KEYDOWN:
+                if event.key==pygame.K_ESCAPE:
                     runing = False
+                if event.key==pygame.K_RIGHT or event.key==pygame.K_d:
+                    howto+=1
+                elif event.key==pygame.K_LEFT or event.key==pygame.K_a:
+                    howto-=1
+            if howto%4 == 0:
+                bg = pygame.transform.scale(pygame.image.load("Images/howtoplay1.jpg").convert(), (1024, 768))
+                screen.blit(bg,(0,0))
+            elif howto%4 == 1:
+                bg = pygame.transform.scale(pygame.image.load("Images/howtoplay2.jpg").convert(), (1024, 768))
+                screen.blit(bg,(0,0))
+            elif howto%4 == 2:
+                bg = pygame.transform.scale(pygame.image.load("Images/howtoplay3.jpg").convert(), (1024, 768))
+                screen.blit(bg,(0,0))
+            elif howto%4 == 3:
+                bg = pygame.transform.scale(pygame.image.load("Images/howtoplay4.jpg").convert(), (1024, 768))
+                screen.blit(bg,(0,0))
         pygame.display.update()
     menu()
 
