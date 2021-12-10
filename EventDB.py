@@ -67,34 +67,56 @@ pink1=(255,67,164)
 # ไม่ทำมี Damage
 
 events = {
-    "Generate" : "%s + %s + %s -> %s" %(red, blue ,yellow, man),
+    "Generate" : "%s + %s + %s -> +2 %s" %(red, blue ,yellow, man),
     "Repair" : "-1 %s and -1 %s to +1 HULL" %(blue, yellow),
-    "EV2" : "-1 %s -> +1 MAX %s" %(man, red),
-    "EV3" : "-1 %s -> +1 MAX %s" %(man, blue),
-    "EV4" : "-1 %s -> +1 MAX %s" %(man, yellow),
-    "Bad1" : "2 %s to avoid -1 HULL" %yellow,
-    "Bad2" : "2 %s to avoid -2 %s" %(blue, man),
-    "Bad3" : "2 %s to avoid -1 %s and -1 %s" %(red, blue, yellow),
+    "Sacrifice" : "-1 %s -> +1 MAX %s %s %s" %(man, red, blue, yellow),
+    "Eat Ship" : "-1 HULL to +1 %s %s %s" %(red, blue, yellow),
+   # "EV3" : "-1 %s -> +1 MAX %s" %(man, blue),
+   # "EV4" : "-1 %s -> +1 MAX %s" %(man, yellow),
+   # "Bad1" : "2 %s to avoid -1 HULL" %yellow,
+   # "Bad2" : "2 %s to avoid -2 %s" %(blue, man),
+   # "Bad3" : "2 %s to avoid -1 %s and -1 %s" %(red, blue, yellow),
     "Change1" : "-1 %s to +1 %s" %(yellow, red),
     "Change2" : "-1 %s to +1 %s" %(red, blue),
     "Change3" : "-1 %s to +1 %s" %(blue, yellow),
     "Bonus1" : "+2 %s" %(man),
-    "Bonus2" : "+1 %s %s %s" %(red, blue, yellow),
+    "Bonus2" : "+1 MAX %s %s %s" %(red, blue, yellow),
+    "Bonus3" : "+2 MAX %s" %(red),
+    "Bonus4" : "+2 MAX %s" %(blue),
+    "Bonus5" : "+2 MAX %s" %(yellow),
     "ExChange1" : "-1 MAX %s to +1 %s %s" %(yellow, red, blue),
     "ExChange2" : "-1 MAX %s to +1 %s %s" %(red, yellow, blue),
     "ExChange3" : "-1 MAX %s to +1 %s %s" %(blue, red, yellow),
-    "LastSave1" : "-1 MAX %s to +2 %s" %(red, blue),
-    "LastSave2" : "-1 MAX %s to +2 %s" %(red, yellow),
-    "LastSave3" : "-1 MAX %s to +2 %s" %(blue, red),
-    "LastSave4" : "-1 MAX %s to +2 %s" %(blue, yellow),
-    "LastSave5" : "-1 MAX %s to +2 %s" %(yellow, blue),
-    "LastSave6" : "-1 MAX %s to +2 %s" %(yellow, red),
-    "ThebigSave1" : "-1 %s to +3 %s" %(man, yellow),
-    "ThebigSave2" : "-1 %s to +3 %s" %(man, blue),
-    "ThebigSave3" : "-1 %s to +3 %s" %(man, red),
-    "ThePowerUP1" : "-1 MAX %s to +1 %s" %(red, man),
-    "ThePowerUP2" : "-1 MAX %s to +1 %s" %(blue, man),
-    "ThePowerUP3" : "-1 MAX %s to +1 %s" %(yellow, man),
+    #"Last Save1" : "-1 MAX %s to +2 %s" %(red, blue),
+   # "Last Save2" : "-1 MAX %s to +2 %s" %(red, yellow),
+   # "Last Save3" : "-1 MAX %s to +2 %s" %(blue, red),
+   # "Last Save4" : "-1 MAX %s to +2 %s" %(blue, yellow),
+   # "Last Save5" : "-1 MAX %s to +2 %s" %(yellow, blue),
+   # "Last Save6" : "-1 MAX %s to +2 %s" %(yellow, red),
+    "Big Save1" : "-1 %s to +3 %s" %(man, yellow),
+    "Big Save2" : "-1 %s to +3 %s" %(man, blue),
+    "Big Save3" : "-1 %s to +3 %s" %(man, red),
+    "Power UP1" : "-1 MAX %s to +1 %s" %(red, man),
+    "Power UP2" : "-1 MAX %s to +1 %s" %(blue, man),
+    "Power UP3" : "-1 MAX %s to +1 %s" %(yellow, man),
+    "UP1" : "-2 %s to +1 MAX %s" %(red, red),
+    "UP2" : "-2 %s to +1 MAX %s" %(blue, blue),
+    "UP3" : "-2 %s to +1 MAX %s" %(yellow, yellow),
+    "Plus1" : "-2 %s to +1 %s" %(yellow, man),
+    "Plus2" : "-2 %s to +1 %s" %(red, man),
+    "Plus3" : "-2 %s to +1 %s" %(blue, man),
+    "Plus4" : "-3 %s to +2 %s" %(yellow, man),
+    "Plus5" : "-3 %s to +2 %s" %(red, man),
+    "Plus6" : "-3 %s to +2 %s" %(blue, man),
+    "Benefit1" : "-1 %s to +1 MAX %s" %(blue, blue),
+    "Benefit2" : "-1 %s to +1 MAX %s" %(red, red),
+    "Benefit3" : "-1 %s to +1 MAX %s" %(yellow, yellow),
+    "Benefit4" : "-2 %s to +2 MAX %s" %(blue, blue),
+    "Benefit5" : "-2 %s to +2 MAX %s" %(red, red),
+    "Benefit6" : "-2 %s to +2 MAX %s" %(yellow, yellow),
+    "Lucky Change1" : "-1 %s to +2 MAX %s" %(red, red),
+    "Lucky Change2" : "-1 %s to +2 MAX %s" %(blue, blue),
+    "Lucky Change3" : "-1 %s to +2 MAX %s" %(yellow, yellow),
 
 }
 bonus_events = {
@@ -105,11 +127,11 @@ bad_events = {
     "Bad2" : "2 %s to avoid -2 %s" %(blue, man),
     "Bad3" : "2 %s to avoid -1 %s and -1 %s" %(red, blue, yellow),
     #"Bonus1" : "+2 %s" %(man),
-    "VeryBad1" : "2 %s to avoid -1 %s" %(red, man),
+    "Defend" : "2 %s to avoid -1 %s" %(red, man),
     #"Bonus2" : "+1 %s %s %s" %(red, blue, yellow)
-    "VeryBad2" : "2 %s to avoid -1 %s" %(yellow, man),
-    "VeryBad3" : "2 %s to avoid -1 %s" %(blue, man),
-    "Goduck1" : "-1 %s %s %s to avoid -2 %s" %(red, blue, yellow, man),
+    "Need Repair" : "2 %s to avoid -1 %s" %(yellow, man),
+    "Get Hurt" : "2 %s to avoid -1 %s" %(blue, man),
+    "Goduck" : "-1 %s %s %s to avoid -2 %s" %(red, blue, yellow, man),
 }
 def ship_hud(ship): #สร้างหน้าบอก Resource
     """Make Ship HUD"""
@@ -184,19 +206,20 @@ def event(evt): #ใช้งานอีเวนต์
         ship["red"][0] -= 1
         ship["blue"][0] -= 1
         ship["yellow"][0] -= 1
-        ship["man"] += 1
+        ship["man"] += 2
     elif evt == "Repair" and ship["blue"][0] >= 1 and ship["yellow"][0] >= 1:
         ship["blue"] -= 1
         ship["yellow"] -= 1
         ship["hull"][0] += 1
-    elif evt == "EV2" and ship["man"] >= 1:
+    elif evt == "Sacrifice" and ship["man"] >= 1:
         ship["man"] -= 1
         ship["red"][1] += 1
-    elif evt == "EV3" and ship["man"] >= 1:
-        ship["man"] -= 1
         ship["blue"][1] += 1
-    elif evt == "EV4" and ship["man"] >= 1:
-        ship["man"] -= 1
+        ship["yellow"][1] += 1
+    elif evt == "Eat Ship" and ship["hull"][0] >= 2:
+        ship["hull"][0] -= 1
+        ship["blue"][1] += 1
+        ship["red"][1] += 1
         ship["yellow"][1] += 1
     elif evt == "Change1" and ship["yellow"][1] >= 1:
         ship["yellow"][0] -= 1
@@ -213,6 +236,12 @@ def event(evt): #ใช้งานอีเวนต์
         ship["yellow"][1] += 1
         ship["red"][1] += 1
         ship["blue"][1] += 1
+    elif evt == "Bonus3":
+        ship["red"][1] += 2
+    elif evt == "Bonus4":
+        ship["blue"][1] += 2
+    elif evt == "Bonus5":
+        ship["yellow"][1] += 2
     elif evt == "ExChange1" and ship["yellow"][1] >= 1:
         ship["yellow"][1] -= 1
         ship["red"][0] += 1
@@ -225,42 +254,93 @@ def event(evt): #ใช้งานอีเวนต์
         ship["yellow"][0] += 1
         ship["red"][0] += 1
         ship["blue"][1] -= 1 
-    elif evt == "LastSave1" and ship["red"][1] >= 1:
-        ship["blue"][0] += 2
-        ship["red"][1] -= 1
-    elif evt == "LastSave2" and ship["red"][1] >= 1:
-        ship["yellow"][0] += 2
-        ship["red"][1] -= 1
-    elif evt == "LastSave3" and ship["blue"][1] >= 1:
-        ship["red"][0] += 2
-        ship["blue"][1] -= 1
-    elif evt == "LastSave4" and ship["blue"][1] >= 1:
-        ship["yellow"][0] += 2
-        ship["blue"][1] -= 1
-    elif evt == "LastSave5" and ship["yellow"][1] >= 1:
-        ship["blue"][0] += 2
-        ship["yellow"][1] -= 1
-    elif evt == "LastSave6" and ship["yellow"][1] >= 1:
-        ship["red"][0] += 2
-        ship["yellow"][1] -= 1
-    elif evt == "ThebigSave1" and ship["man"] >= 1:
+  #  elif evt == "Last Save1" and ship["red"][1] >= 1:
+  #      ship["blue"][0] += 2
+  #      ship["red"][1] -= 1
+  #  elif evt == "Last Save2" and ship["red"][1] >= 1:
+  #      ship["yellow"][0] += 2
+  #      ship["red"][1] -= 1
+  #  elif evt == "Last Save3" and ship["blue"][1] >= 1:
+  #      ship["red"][0] += 2
+  #      ship["blue"][1] -= 1
+  #  elif evt == "Last Save4" and ship["blue"][1] >= 1:
+  #      ship["yellow"][0] += 2
+  #      ship["blue"][1] -= 1
+  #  elif evt == "Last Save5" and ship["yellow"][1] >= 1:
+  #      ship["blue"][0] += 2
+  #      ship["yellow"][1] -= 1
+  #  elif evt == "Last Save6" and ship["yellow"][1] >= 1:
+  #      ship["red"][0] += 2
+  #      ship["yellow"][1] -= 1
+    elif evt == "Big Save1" and ship["man"] >= 1:
         ship["man"] -= 1
         ship["yellow"][0] += 3
-    elif evt == "ThebigSave2" and ship["man"] >= 1: 
+    elif evt == "Big Save2" and ship["man"] >= 1: 
         ship["man"] -= 1
         ship["blue"][0] += 3
-    elif evt == "ThebigSave3" and ship["man"] >= 1:
+    elif evt == "Big Save3" and ship["man"] >= 1:
         ship["man"] -= 1
         ship["red"][0] += 3
-    elif evt == "ThePowerUP1" and ship["red"][1] >= 1:
+    elif evt == "Power UP1" and ship["red"][1] >= 1:
         ship["man"] += 1
         ship["red"][1] -= 1
-    elif evt == "ThePowerUP2" and ship["blue"][1] >= 1:
+    elif evt == "Power UP2" and ship["blue"][1] >= 1:
         ship["man"] += 1
         ship["blue"][1] -= 1
-    elif evt == "ThePowerUP3" and ship["yellow"][1] >= 1:
+    elif evt == "Power UP3" and ship["yellow"][1] >= 1:
         ship["man"] += 1
         ship["yellow"][1] -= 1
+    elif evt == "UP1" and ship["red"][0] >= 2:
+        ship["red"][1] += 1
+        ship["red"][0] -= 2
+    elif evt == "UP2" and ship["blue"][0] >= 2:
+        ship["blue"][1] += 1
+        ship["blue"][0] -= 2
+    elif evt == "UP3" and ship["yellow"][0] >= 2:
+        ship["yellow"][1] += 1
+        ship["yellow"][0] -= 2
+    elif evt == "Plus1" and ship["yellow"][0] >= 2:
+        ship["man"] += 1
+        ship["yellow"][0] -= 2
+    elif evt == "Plus2" and ship["red"][0] >= 2:
+        ship["man"] += 1
+        ship["red"][0] -= 2
+    elif evt == "Plus3" and ship["blue"][0] >= 2:
+        ship["man"] += 1
+        ship["blue"][0] -= 2
+    elif evt == "Plus4" and ship["yellow"][0] >= 3:
+        ship["man"] += 2
+        ship["yellow"][0] -= 3
+    elif evt == "Plus5" and ship["red"][0] >= 3:
+        ship["man"] += 2
+        ship["red"][0] -= 3
+    elif evt == "Plus6" and ship["blue"][0] >= 3:
+        ship["man"] += 2
+        ship["blue"][0] -= 3
+    elif evt == "Benefit1" and ship["blue"][0] >= 1:
+        ship["blue"][0] -= 1
+        ship["blue"][1] += 1
+    elif evt == "Benefit2" and ship["red"][0] >= 1:
+        ship["red"][0] -= 1
+        ship["red"][1] += 1
+    elif evt == "Benefit3" and ship["yellow"][0] >= 1:
+        ship["yellow"][0] -= 1
+        ship["yellow"][1] += 1
+    elif evt == "Benefit4" and ship["blue"][0] >= 2:
+        ship["blue"][0] -= 2
+        ship["blue"][1] += 2
+    elif evt == "Benefit5" and ship["red"][0] >= 2:
+        ship["red"][0] -= 2
+        ship["red"][1] += 2
+    elif evt == "Benefit6" and ship["yellow"][0] >= 2:
+        ship["yellow"][0] -= 2
+        ship["yellow"][1] += 2
+    elif evt == "Lucky Change1" and ship["red"][0] >= 1:
+        ship["red"][1] += 2
+    elif evt == "Lucky Change2" and ship["blue"][0] >= 1:
+        ship["blue"][1] += 2
+    elif evt == "Lucky Change3" and ship["yellow"][0] >= 1:
+        ship["yellow"][1] += 2
     else:
         print("no")
         return False
@@ -275,14 +355,16 @@ def bad_event(evt):
     elif evt == "Bad3" and (ship["blue"][1] >= 1 and ship["yellow"][1] >= 1):
         ship["blue"][1] -= 1
         ship["yellow"][1] -= 1
-    elif evt == "VeryBad1":
-        ship["man"] -= 1
-    elif evt == "VeryBad2":
-        ship["man"] -= 1
-    elif evt == "VeryBad3":
-        ship["man"] -= 1
-    elif evt == "Goduck1":
-        ship["man"] -= 2
+    elif evt == "Defend" and ship["red"][0] >= 2:
+        ship["red"][0] -= 2
+    elif evt == "Need Repair" and ship["yellow"][0] >= 2:
+        ship["yellow"][0] -= 2
+    elif evt == "Get Hurt" and ship["blue"][0] >= 2:
+        ship["blue"][0] -= 2
+    elif evt == "Goduck" and ship["red"][0] >= 1 and ship["blue"][0] >= 1 and ship["yellow"][0] >= 1:
+        ship["red"][0] -= 1
+        ship["blue"][0] -= 1
+        ship["yellow"][0] -= 1
 
 def bonus_event():
     """Random Bonus Event"""

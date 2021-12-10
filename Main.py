@@ -160,7 +160,7 @@ def statecheck():
         "yellow" : [1, 1], # Engineer
         "man" : 10, # Power
         "current" : 0,
-        "boss" : 25
+        "boss" : 20
     }
     win = True
     while edb.ship['current'] < 4 and win == True:
@@ -175,7 +175,7 @@ def statecheck():
                 edb.bad_event(values)
                 # print('------------------------Trigger', values)
         edb.ship["current"]+= 1
-        edb.ship["man"]-= 1
+        #edb.ship["man"]-= 1
     if not win or edb.ship["man"] <= edb.ship["boss"]:
         play_music("Audio/lose.wav")
         bg = pygame.transform.scale(pygame.image.load("Images/lose.jpg").convert(), (1024, 768))
