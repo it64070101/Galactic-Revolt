@@ -33,26 +33,6 @@ def text(message, textFont, textSize, textColor):
     newText=newFont.render(message, 0, textColor)
     return newText
 
-def mainloop():
-    """Main Loop"""
-    stars = 1 #จำนวนดาวที่จะไป
-    win = True
-    while edb.ship['current'] < stars or win == True:
-        #edb.bonus_event()
-        cards = edb.sector_cards(edb.all_event, edb.all_prob)
-        win = edb.choose_card(cards)
-        #os.system('cls')
-        edb.ship['current']  += 1
-    if win == False:
-        print("Game Over")
-    else:
-        print("BOSS STAGE")
-        print("Your Power: %d VS %d: Boss Power" %(edb.ship["man"], edb.ship["boss"]))
-        if edb.ship["boss"] >= edb.ship["man"]:
-            print("===== YOU LOSE ! =====")
-        else:
-            print("===== YOU WIN ! =====")
-
 # Colors
 white=(255, 255, 255)
 black=(0, 0, 0)
@@ -133,7 +113,7 @@ def menu():
                 if event.key==pygame.K_RETURN or event.key==pygame.K_SPACE:
                     if selected%3 == 0: #Start
                         play_sound("Audio/Confirm.wav")
-                        print("Start")
+                        # print("Start")
                         statecheck()
                     if selected%3 == 1: #Quit
                         play_sound("Audio/Confirm.wav")
@@ -142,7 +122,7 @@ def menu():
                         quit()
                     if selected%3 == 2: #Howtoplay
                         play_sound("Audio/Confirm.wav")
-                        print("How to play")
+                        # print("How to play")
                         howtoplay()
 
         # UI Output
@@ -167,7 +147,7 @@ def statecheck():
         play_sound("Audio/start-level.wav")
         screen.fill((0,0,0))
         cards = edb.sector_cards(edb.all_event, edb.all_prob)
-        print(cards)
+        # print(cards)
         win = eventpress(cards)
         #check
         for values in edb.bad_events:
@@ -245,7 +225,7 @@ def howtoplay():
 def eventpress(cards):
     eventpress=True
     selected=0
-    bg = all_bg.pop()
+    bg = random.randint(1, 12)
     while eventpress:
         for event in pygame.event.get():
             if edb.ship["hull"][0] <= 0 or edb.ship["man"] <= 0:

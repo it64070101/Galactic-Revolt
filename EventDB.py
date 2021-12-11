@@ -201,7 +201,7 @@ def choose_card(cards): #เลือกการ์ด
         if ship["hull"][0] <= 0:
             return False
         ship_hud(ship)
-        print("Please choose a card")
+        # print("Please choose a card")
         for i in range(len(cards)):
             print("(%d) %s: %s" %(i+1, cards[i], events[cards[i]]))
         choose = int(input())
@@ -213,7 +213,7 @@ def choose_card(cards): #เลือกการ์ด
             #os.system('cls')       
         else:
             print("ERROR")
-    print(cards)
+    # print(cards)
     for values in bad_events:
         if values in cards:
             print('------------------------Trigger', values)
@@ -329,7 +329,7 @@ def event(evt): #ใช้งานอีเวนต์
         ship["blue"][0] -= 2
     
     else:
-        print("no")
+        # print("no")
         return False
     return True
 
