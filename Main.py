@@ -140,7 +140,7 @@ def statecheck():
         "yellow" : [1, 1], # Engineer
         "man" : 10, # Power
         "current" : 0,
-        "boss" : 20
+        "boss" : 25
     }
     win = True
     while edb.ship['current'] < 10 and win == True:
@@ -168,7 +168,7 @@ def statecheck():
             screen.blit(bg,(0,0))
             for event in pygame.event.get():
                 if event.type==pygame.KEYDOWN:
-                        runing = False
+                    runing = False
             pygame.display.update()
         menu()
         # pygame.display.update()
@@ -182,7 +182,7 @@ def statecheck():
             screen.blit(bg,(0,0))
             for event in pygame.event.get():
                 if event.type==pygame.KEYDOWN:
-                        runing = False
+                    runing = False
             pygame.display.update()
         menu()
         # pygame.display.update()
